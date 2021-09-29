@@ -2,6 +2,7 @@
 #pragma comment( lib, "ws2_32.lib")
 
 #include <string>
+#include <memory>
 
 #include <winsock2.h>
 #include <Ws2tcpip.h>
@@ -23,13 +24,13 @@ public:
     std::string get_username();
     void set_username(std::string username);
 
-    char* get_ip();
-    void set_ip(char* ip);
+    std::unique_ptr<char> get_ip();
+    void set_ip(std::unique_ptr<char> ip);
 private:
     SOCKET socket;
     int port_number;
     std::string username;
-    char* ip[INET_ADDRSTRLEN];
+    std::unique_ptr<char> ip[INET_ADDRSTRLEN];
 
 
     size_t get_size_from(std::string fixed_length_string);
