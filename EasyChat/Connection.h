@@ -31,6 +31,13 @@ class Client_Down_Exception : public std::exception {
 class Connection
 {
 public:
+    Connection(SOCKET socket, int port_number, const std::string& username)
+	    : socket(socket),
+	      port_number(port_number),
+	      username(username)
+    {
+    }
+    ~Connection();
     std::string get_fixed_length_size(std::string message);
     void send_message(std::string message);
     std::string recive_message();
@@ -39,6 +46,8 @@ public:
     void set_socket(SOCKET socket);
 
     int get_port_number();
+
+
     void set_port_number(int port_number);
 
     std::string get_username();

@@ -4,6 +4,13 @@
 #include <iostream>
 #include <sstream>
 
+Connection::~Connection()
+{
+    this->socket = 0;
+    this->username = "";
+    this->port_number = 0;
+}
+
 std::string Connection::get_fixed_length_size(std::string message)
 {
 	std::stringstream stream;
