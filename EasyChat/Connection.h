@@ -20,7 +20,6 @@ class Connection
 public:
     std::string get_fixed_length_size(std::string message);
     void send_message(std::string message);
-    std::string get_message(size_t size);
     std::string recive_message();
 
     SOCKET get_socket();
@@ -36,5 +35,6 @@ private:
     int port_number;
     std::string username;
     size_t get_size_from(std::string fixed_length_string);
+    std::string get_message(size_t size);
 };
 

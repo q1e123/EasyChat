@@ -1,6 +1,7 @@
 #include "Connection.h"
 
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 
 std::string Connection::get_fixed_length_size(std::string message)
@@ -24,8 +25,31 @@ void Connection::send_message(std::string message)
         }
     }
 }
-std::string Connection::recive_message();
+std::string Connection::recive_message()
+{
+	
+}
 
+size_t Connection::get_size_from(std::string fixed_length_string)
+{
+    fixed_length_string.erase(0, std::min(fixed_length_string.find_first_not_of('0'), fixed_length_string.size() - 1));
+    size_t size;
+    if (fixed_length_string.size() < 1) {
+        return 0;
+    }
+    try {
+        size = std::stol(fixed_length_string);
+    }
+    catch (const std::exception& e) {
+        std::cerr << "connection: " << e.what() << " " << fixed_length_string << '\n';
+    }
+
+    return size;
+}
+std::string Connection::get_message(size_t size)
+{
+	
+}
 SOCKET Connection::get_socket()
 {
 	return this->socket;
