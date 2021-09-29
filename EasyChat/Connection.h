@@ -9,6 +9,12 @@
 #define BUFFER_SIZE 65536
 #define SIZE_BYTES 10
 
+class Message_Not_Sent_Exception : public std::exception {
+    virtual const char* what() const throw() {
+        return "Message was not sent";
+    }
+};
+
 class Connection
 {
 public:
