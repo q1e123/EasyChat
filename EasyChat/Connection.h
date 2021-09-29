@@ -31,7 +31,7 @@ class Client_Down_Exception : public std::exception {
 class Connection
 {
 public:
-    Connection(SOCKET socket, int port_number, const std::string& username)
+    Connection(SOCKET socket, int port_number, const std::string& username="Anon")
 	    : socket(socket),
 	      port_number(port_number),
 	      username(username)
