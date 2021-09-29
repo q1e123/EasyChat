@@ -15,6 +15,19 @@ class Message_Not_Sent_Exception : public std::exception {
     }
 };
 
+class COMMUNICATION_PROTOCOL_IMPEXP Socket_Error_Exception : public std::exception {
+    virtual const char* what() const throw() {
+        return "Unknown socket error";
+    }
+};
+
+class COMMUNICATION_PROTOCOL_IMPEXP Client_Down_Exception : public std::exception {
+    virtual const char* what() const throw() {
+        return "Client down";
+    }
+};
+
+
 class Connection
 {
 public:
