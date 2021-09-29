@@ -27,7 +27,13 @@ void Connection::send_message(std::string message)
 }
 std::string Connection::recive_message()
 {
-	
+    std::string message = "";
+    std::string recv_string = get_message(SIZE_BYTES);
+    size_t message_size = get_size_from(recv_string);
+    if (message_size > 0) {
+        message = get_message(message_size);
+    }
+    return message;
 }
 
 size_t Connection::get_size_from(std::string fixed_length_string)
@@ -43,7 +49,6 @@ size_t Connection::get_size_from(std::string fixed_length_string)
     catch (const std::exception& e) {
         std::cerr << "connection: " << e.what() << " " << fixed_length_string << '\n';
     }
-
     return size;
 }
 std::string Connection::get_message(size_t size)
