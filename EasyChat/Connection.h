@@ -29,9 +29,6 @@ private:
     SOCKET socket;
     int port_number;
     std::string username;
-    char* ip[INET_ADDRSTRLEN];
-
-
     size_t get_size_from(std::string fixed_length_string);
 };
 
