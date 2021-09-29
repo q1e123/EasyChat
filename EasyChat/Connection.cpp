@@ -1,10 +1,16 @@
 #include "Connection.h"
 
-std::string Connection::get_fixed_length_size(std::string message{
+#include <iomanip>
+#include <sstream>
 
-};
+std::string Connection::get_fixed_length_size(std::string message)
+{
+	std::stringstream stream;
+	stream << std::setw(SIZE_BYTES) << std::setfill('0') << message.size();
+	std::string size = stream.str();
+	return size;
+}
 void Connection::send_message(std::string message);
-std::string Connection::get_message(size_t size);
 std::string Connection::recive_message();
 
 SOCKET Connection::get_socket()

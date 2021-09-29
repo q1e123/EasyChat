@@ -6,6 +6,9 @@
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 
+#define BUFFER_SIZE 65536
+#define SIZE_BYTES 10
+
 class Connection
 {
 public:
@@ -22,9 +25,6 @@ public:
 
     std::string get_username();
     void set_username(std::string username);
-
-    char* get_ip();
-    void set_ip(char* ip);
 private:
     SOCKET socket;
     int port_number;
