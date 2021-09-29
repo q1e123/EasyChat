@@ -48,7 +48,24 @@ size_t Connection::get_size_from(std::string fixed_length_string)
 }
 std::string Connection::get_message(size_t size)
 {
-	
+    std::string message = "";
+    std::unique_ptr<char[]> buffer(new char[BUFFER_SIZE]);
+    size_t bytes_recived = 0;
+    while (bytes_recived < size) {
+        memset(buffer.get(), '\0', BUFFER_SIZE);
+        size_t len = recv(socket, buffer.get(), size - bytes_recived, 0);
+        if (len < 0) {
+            throw Socket_Error_Exception();
+        }
+        if (len == 0) {
+            throw Client_Down_Exception();
+        }
+        std::string recived_message = std::string(buffer.get());
+        message += recived_message;
+        bytes_recived += len;
+    }
+    return message;
+
 }
 SOCKET Connection::get_socket()
 {
