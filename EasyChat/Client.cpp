@@ -1,6 +1,6 @@
 #include "Client.h"
 
-Client::Client(int port_number, const std::string ip, const std::string username = "Anon")
+Client::Client(int port_number, const std::string ip, const std::string username)
 {
 	if (socket_init() != 0) {
 		std::cerr << ("socket init failed") << std::endl;
@@ -89,3 +89,13 @@ void Client::set_server_name(std::string server_name)
 {
 	this->server_name = server_name;
 }
+
+int Client::socket_close(SOCKET socket) {
+	int status = 0;
+	status = shutdown(socket, SD_BOTH);
+	if (status == 0) {
+		status = closesocket(socket);
+	}
+	return status;
+}
+

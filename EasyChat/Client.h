@@ -51,8 +51,6 @@ private:
 	void recive_message();
 
 	int socket_init();
-	int socket_quit();
-	bool socket_check(SOCKET socket);
 	int socket_close(SOCKET socket);
 };
 
