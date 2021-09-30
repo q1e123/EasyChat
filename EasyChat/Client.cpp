@@ -2,11 +2,7 @@
 
 Client::Client(int port_number, const std::string ip, const std::string username)
 {
-	if (socket_init() != 0) {
-		std::cerr << ("socket init failed") << std::endl;
-	}
-	SOCKET connection_socket = socket(AF_INET, SOCK_STREAM, 0);
-	this->server_connection = std::unique_ptr<Connection>(new Connection(connection_socket, port_number, ip, username));
+	this->server_connection = std::unique_ptr<Connection>(new Connection(port_number, ip, username));
 	if(this->server_connection == nullptr)
 	{
 		std::cerr << "MEMORY ERROR: server connection" << std::endl;
@@ -24,11 +20,6 @@ Client::~Client() {
 	}
 	this->server_name = "";
 	this->server_connection.reset();
-}
-
-int Client::socket_init() {
-	WSADATA wsa_data;
-	return WSAStartup(MAKEWORD(1, 1), &wsa_data);
 }
 
 void Client::connect_and_auth() {
@@ -97,13 +88,3 @@ void Client::set_server_name(std::string server_name)
 {
 	this->server_name = server_name;
 }
-
-int Client::socket_close(SOCKET socket) {
-	int status = 0;
-	status = shutdown(socket, SD_BOTH);
-	if (status == 0) {
-		status = closesocket(socket);
-	}
-	return status;
-}
-

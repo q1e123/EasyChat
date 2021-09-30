@@ -4,9 +4,21 @@
 #include <iostream>
 #include <sstream>
 
+Connection::Connection(int port_number, const std::string ip, const std::string username = "Anon")
+    : port_number(port_number),
+    username(username),
+    ip(ip)
+{
+    if (socket_init() != 0) {
+        std::cerr << ("socket init failed") << std::endl;
+    }
+    this->sock = socket(AF_INET, SOCK_STREAM, 0);
+}
+
 Connection::~Connection()
 {
-    this->socket = 0;
+    socket_close();
+    this->sock = 0;
     this->username = "";
     this->port_number = 0;
 }
@@ -18,6 +30,7 @@ std::string Connection::get_fixed_length_size(std::string message)
 	std::string size = stream.str();
 	return size;
 }
+
 void Connection::send_message(std::string message)
 {
     std::string encapsulated_string = get_fixed_length_size(message) + message;
@@ -25,13 +38,14 @@ void Connection::send_message(std::string message)
     size_t bytes_sent = 0;
     while (total_bytes_sent < encapsulated_string.size()) {
         std::string message_left = encapsulated_string.substr(bytes_sent);
-        bytes_sent = send(socket, message_left.c_str(), message_left.size(), 0);
+        bytes_sent = send(this->sock, message_left.c_str(), message_left.size(), 0);
         total_bytes_sent += bytes_sent;
         if (bytes_sent < 0) {
             throw Message_Not_Sent_Exception();
         }
     }
 }
+
 std::string Connection::recive_message()
 {
     std::string message = "";
@@ -58,6 +72,7 @@ size_t Connection::get_size_from(std::string fixed_length_string)
     }
     return size;
 }
+
 std::string Connection::get_message(size_t size)
 {
     std::string message = "";
@@ -65,7 +80,7 @@ std::string Connection::get_message(size_t size)
     size_t bytes_recived = 0;
     while (bytes_recived < size) {
         memset(buffer.get(), '\0', BUFFER_SIZE);
-        size_t len = recv(socket, buffer.get(), size - bytes_recived, 0);
+        size_t len = recv(this->sock, buffer.get(), size - bytes_recived, 0);
         if (len < 0) {
             throw Socket_Error_Exception();
         }
@@ -79,19 +94,36 @@ std::string Connection::get_message(size_t size)
     return message;
 
 }
+
+int Connection::socket_init() {
+    WSADATA wsa_data;
+    return WSAStartup(MAKEWORD(1, 1), &wsa_data);
+}
+
+int Connection::socket_close() {
+    int status = 0;
+    status = shutdown(this->sock, SD_BOTH);
+    if (status == 0) {
+        status = closesocket(this->sock);
+    }
+    return status;
+}
+
 SOCKET Connection::get_socket()
 {
-	return this->socket;
+	return this->sock;
 }
+
 void Connection::set_socket(SOCKET socket)
 {
-	this->socket = socket;
+	this->sock = socket;
 }
 
 int Connection::get_port_number()
 {
 	return this->port_number;
 }
+
 void Connection::set_port_number(int port_number)
 {
 	this->port_number = port_number;
@@ -101,17 +133,18 @@ std::string Connection::get_username()
 {
 	return this->username;
 }
+
 void Connection::set_username(std::string username)
 {
 	this->username = username;
 }
 
-
 std::string Connection::get_ip()
 {
     return this->ip;
 }
-void Connection::set_username(std::string ip)
+
+void Connection::set_ip(std::string ip)
 {
     this->ip= ip;
 }

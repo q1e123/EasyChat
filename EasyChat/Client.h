@@ -49,8 +49,5 @@ private:
 	void connect_to_server();
 	void authentification();
 	void recive_message();
-
-	int socket_init();
-	int socket_close(SOCKET socket);
 };
 
