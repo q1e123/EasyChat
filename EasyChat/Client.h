@@ -16,6 +16,18 @@
 
 #include "Connection.h"
 
+class Server_Down_Exception : public std::exception {
+public:
+	virtual const char* what() const throw();
+private:
+};
+
+class Login_Exception : public std::exception {
+public:
+	virtual const char* what() const throw();
+private:
+};
+
 class Client
 {
 public:
