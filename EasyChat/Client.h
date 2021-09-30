@@ -34,8 +34,7 @@ public:
 	Client(int port_number, const std::string ip, const std::string username = "Anon");
 	~Client();
 
-	void connect_to_server();
-
+	void connect_and_auth();
 
 	std::string get_server_name();
 	void set_server_name(std::string server_name);
@@ -44,6 +43,9 @@ private:
 
 	std::unique_ptr<Connection> server_connection;
 	struct sockaddr_in server_addr;
+
+	void connect_to_server();
+	void authentification();
 
 	int socket_init();
 	int socket_quit();

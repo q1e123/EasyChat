@@ -23,6 +23,50 @@ int Client::socket_init() {
 	return WSAStartup(MAKEWORD(1, 1), &wsa_data);
 }
 
+void Client::connect_and_auth() {
+	try
+	{
+		connect_to_server();
+	}
+	catch (Server_Down_Exception exception)
+	{
+		std::cerr << "server is down" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	try
+	{
+		authentification();
+	}
+	catch (Login_Exception exception)
+	{
+		std::cerr << "authentification was not successful" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
+void Client::connect_to_server()
+{
+	SOCKET client_socket = this->server_connection->get_socket();
+
+	if (connect(client_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+		throw Server_Down_Exception();
+	}
+	std::cout << "connection was successful" << std::endl;
+
+}
+
+void Client::authentification()
+{
+	this->server_connection->send_message(this->server_connection->get_username());
+	this->server_name = this->server_connection->recive_message();
+	std::string login_response = this->server_connection->recive_message();
+	if (login_response == "RETRY") {
+		throw Login_Exception();
+	}
+	std::cout << "login was successful" << std::endl;
+}
+
 
 std::string Client::get_server_name()
 {
