@@ -105,3 +105,13 @@ void Connection::set_username(std::string username)
 {
 	this->username = username;
 }
+
+
+std::string Connection::get_ip()
+{
+    return this->ip;
+}
+void Connection::set_username(std::string ip)
+{
+    this->ip= ip;
+}

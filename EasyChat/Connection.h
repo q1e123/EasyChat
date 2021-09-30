@@ -31,10 +31,11 @@ class Client_Down_Exception : public std::exception {
 class Connection
 {
 public:
-    Connection(SOCKET socket, int port_number, const std::string& username="Anon")
-	    : socket(socket),
-	      port_number(port_number),
-	      username(username)
+    Connection(SOCKET socket, int port_number, const std::string ip, const std::string username="Anon")
+	    :   socket(socket),
+			port_number(port_number),
+			username(username),
+			ip(ip)
     {
     }
     ~Connection();
@@ -52,10 +53,15 @@ public:
 
     std::string get_username();
     void set_username(std::string username);
+
+	std::string get_ip();
+    void set_ip(std::string ip);
+	
 private:
     SOCKET socket;
     int port_number;
     std::string username;
+    std::string ip;
     size_t get_size_from(std::string fixed_length_string);
     std::string get_message(size_t size);
 };
