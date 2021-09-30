@@ -67,11 +67,24 @@ void Client::authentification()
 	std::cout << "login was successful" << std::endl;
 }
 
+void Client::start_reciver()
+{
+	this->reciver = std::thread(&Client::recive_message, this);
+}
+
+void Client::recive_message() {
+	std::string message = "";
+	while (message!= "SOCKET_DOWN") {
+		message = this->server_connection->recive_message();
+		std::cout << message << std::endl;
+	}
+}
 
 std::string Client::get_server_name()
 {
 	return this->server_name;
 }
+
 void Client::set_server_name(std::string server_name)
 {
 	this->server_name = server_name;

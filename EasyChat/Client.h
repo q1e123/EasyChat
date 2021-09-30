@@ -35,17 +35,20 @@ public:
 	~Client();
 
 	void connect_and_auth();
+	void start_reciver();
 
 	std::string get_server_name();
 	void set_server_name(std::string server_name);
 private:
 	std::string server_name;
+	std::thread reciver;
 
 	std::unique_ptr<Connection> server_connection;
 	struct sockaddr_in server_addr;
 
 	void connect_to_server();
 	void authentification();
+	void recive_message();
 
 	int socket_init();
 	int socket_quit();
