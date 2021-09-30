@@ -33,7 +33,15 @@ class Client
 public:
 	Client(int port_number, const std::string ip, const std::string username = "Anon");
 	~Client();
+
+	void connect_to_server();
+
+
+	std::string get_server_name();
+	void set_server_name(std::string server_name);
 private:
+	std::string server_name;
+
 	std::unique_ptr<Connection> server_connection;
 	struct sockaddr_in server_addr;
 

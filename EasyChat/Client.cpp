@@ -22,3 +22,13 @@ int Client::socket_init() {
 	WSADATA wsa_data;
 	return WSAStartup(MAKEWORD(1, 1), &wsa_data);
 }
+
+
+std::string Client::get_server_name()
+{
+	return this->server_name;
+}
+void Client::set_server_name(std::string server_name)
+{
+	this->server_name = server_name;
+}
