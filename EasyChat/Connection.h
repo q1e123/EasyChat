@@ -68,8 +68,7 @@ private:
     std::string get_message(size_t size);
     int socket_init();
     int socket_close();
+    int socket_quit();
     bool socket_check();
-    int socket_close();
-
 };
 

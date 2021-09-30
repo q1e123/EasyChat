@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "Server.h"
+
 Connection::Connection(int port_number, const std::string ip, const std::string username = "Anon")
     : port_number(port_number),
     username(username),
@@ -109,6 +111,17 @@ int Connection::socket_close() {
     return status;
 }
 
+int Connection::socket_quit() {
+    return WSACleanup();
+}
+
+bool Connection::socket_check() {
+    if (this->sock == INVALID_SOCKET) {
+        return false;
+    }
+    return true;
+}
+
 SOCKET Connection::get_socket()
 {
 	return this->sock;
@@ -117,6 +130,11 @@ SOCKET Connection::get_socket()
 void Connection::set_socket(SOCKET socket)
 {
 	this->sock = socket;
+    if (!socket_check()) {
+        socket_close();
+        socket_quit();
+        throw Bad_Socket_Exception();
+    }
 }
 
 int Connection::get_port_number()
