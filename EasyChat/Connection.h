@@ -26,6 +26,12 @@ class Client_Down_Exception : public std::exception {
     }
 };
 
+class Bad_Socket_Exception : public std::exception {
+    virtual const char* what() const throw() {
+        return "Bad socket";
+    }
+};
+
 
 class Connection
 {
@@ -62,5 +68,8 @@ private:
     std::string get_message(size_t size);
     int socket_init();
     int socket_close();
+    bool socket_check();
+    int socket_close();
+
 };
 
