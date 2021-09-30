@@ -4,7 +4,6 @@
 #include <string>
 
 #include <winsock2.h>
-#include <Ws2tcpip.h>
 
 #define BUFFER_SIZE 65536
 #define SIZE_BYTES 10

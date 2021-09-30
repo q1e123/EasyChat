@@ -1,18 +1,11 @@
 #pragma once
 #pragma comment( lib, "ws2_32.lib")
 
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-
 #include <thread>
-#include <mutex>
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include <winsock2.h>
-#include <Ws2tcpip.h>
 
 #include "Connection.h"
 
