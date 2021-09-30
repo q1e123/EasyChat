@@ -18,6 +18,14 @@ Client::Client(int port_number, const std::string ip, const std::string username
 	server_addr.sin_addr.s_addr = inet_addr(ip.c_str());
 }
 
+Client::~Client() {
+	if (reciver.joinable()) {
+		reciver.join();
+	}
+	this->server_name = "";
+	this->server_connection.reset();
+}
+
 int Client::socket_init() {
 	WSADATA wsa_data;
 	return WSAStartup(MAKEWORD(1, 1), &wsa_data);
