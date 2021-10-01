@@ -1,12 +1,13 @@
 #include "Client.h"
 
+#include "Utils.h"
+
 Client::Client(int port_number, const std::string ip, const std::string username)
 {
 	this->server_connection = std::unique_ptr<Connection>(new Connection(port_number, ip, username));
 	if(this->server_connection == nullptr)
 	{
-		std::cerr << "MEMORY ERROR: server connection" << std::endl;
-		exit(EXIT_FAILURE);
+		Utils::memory_error();
 	}
 	std::memset(server_addr.sin_zero, '\0', sizeof(server_addr.sin_zero));
 	server_addr.sin_family = AF_INET;

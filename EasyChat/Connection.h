@@ -36,7 +36,7 @@ class Bad_Socket_Exception : public std::exception {
 class Connection
 {
 public:
-    Connection(int port_number, const std::string ip, const std::string username = "Anon");
+    Connection(int port_number=0, const std::string ip="", const std::string username = "Anon");
     ~Connection();
     std::string get_fixed_length_size(std::string message);
     void send_message(std::string message);

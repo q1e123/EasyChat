@@ -6,7 +6,7 @@
 
 #include "Server.h"
 
-Connection::Connection(int port_number, const std::string ip, const std::string username = "Anon")
+Connection::Connection(int port_number, const std::string ip, const std::string username)
     : port_number(port_number),
     username(username),
     ip(ip)
