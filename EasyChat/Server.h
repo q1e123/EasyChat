@@ -35,8 +35,8 @@ private:
 
 	void send_to_all(std::string message);
 
-	int socket_init();
-
 	void reciver(std::shared_ptr<Connection> client_connection);
 	void remove_user(std::shared_ptr<Connection> connection);
+
+	std::string get_wrapped_message(std::string username, std::string message);
 };

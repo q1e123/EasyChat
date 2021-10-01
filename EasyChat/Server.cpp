@@ -101,3 +101,9 @@ void Server::remove_user(std::shared_ptr<Connection> connection)
 	mtx.unlock();
 
 }
+
+std::string Server::get_wrapped_message(std::string username, std::string message)
+{
+	std::string wrapped_message = username + ": " + message;
+	return wrapped_message;
+}
