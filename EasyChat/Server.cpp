@@ -83,6 +83,7 @@ void Server::reciver(std::shared_ptr<Connection> client_connection) {
 	try {
 		while (message != "SOCKET_DOWN") {
 			message = client_connection->recive_message();
+			std::string wrapped_message = this->get_wrapped_message(username, message);
 			send_to_all(message);
 		}
 	}
@@ -106,4 +107,14 @@ std::string Server::get_wrapped_message(std::string username, std::string messag
 {
 	std::string wrapped_message = username + ": " + message;
 	return wrapped_message;
+}
+
+void Server::send_to_all(std::string message) {
+	mtx.lock();
+	std::string pkg = "";
+	for (auto const& item : this->username_connection_map) {
+		item.second->send_message(message);
+	}
+	mtx.unlock();
+	std::this_thread::sleep_for(WAIT_PERIOD);
 }

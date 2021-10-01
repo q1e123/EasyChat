@@ -13,6 +13,7 @@
 
 #define LOOPBACK_ADDR	"127.0.0.1"
 #define DEFAULT_PORT 50005
+#define WAIT_PERIOD std::chrono::milliseconds(500)
 
 class Server {
 public:
