@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "Utils.h"
+
 Server::Server(std::string name, size_t port) {
 	this->name = name;
 	
@@ -24,4 +26,77 @@ Server::Server(std::string name, size_t port) {
 		std::cerr << "listening unsuccessful" << std::endl;
 		exit(1);
 	}
+}
+
+void Server::start() {
+	while (1) {
+		SOCKET client_sock;
+		client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &client_addr_size);
+		
+		mtx.lock();
+		PSTR ip_PSTR;
+		inet_ntop(AF_INET, (struct sockaddr*)&client_addr, ip_PSTR, INET_ADDRSTRLEN);
+		std::string ip = std::string(ip_PSTR);
+		std::cout << "connection successful " << ip << std::endl;
+		std::unique_ptr<Connection> client_connection = std::unique_ptr<>(new Connection());
+		if (client_connection == nullptr)
+		{
+			Utils::memory_error();
+		}
+		client_connection->set_socket(client_sock);
+		std::string username = client_connection->recive_message();
+		client_connection->set_username(username);
+
+		client_connection->send_message(this->name);
+
+		std::string login_message;
+		if (true)
+		{
+			login_message = "OK";
+		} else
+		{
+			login_message = "RETRY";
+		}
+
+		client_connection->send_message(login_message);
+		if (login_message == "OK") {
+			this->username_connection_map[username] = client_connection;
+			std::thread worker(&Server::recv_msg, this, client);
+			workers[client_sock] = std::move(worker);
+		}
+
+		mtx.unlock();
+	}
+	for (auto client : clients) {
+		if (workers[client.get_socket_number()].joinable()) {
+			workers[client.get_socket_number()].join();
+		}
+	}
+}
+
+void Server::reciver(std::unique_ptr<Connection> client_connection) {
+	std::cout << "reciver started for " << client_connection->get_username() << std::end;
+	std::string message;
+	try {
+		while (message != "SOCKET_DOWN") {
+			message = client_connection->recive_message();
+			send_to_all(message);
+		}
+	}
+	catch (Client_Down_Exception exception) {
+		std::cout << client_connection->get_username() << " has disconnected" << std::endl;
+		mtx.lock();
+		this->username_connection_map.erase(client_connection->get_username());
+		mtx.unlock();
+	}
+}
+
+void Server::remove_user(std::unique_ptr<Connection> connection)
+{
+	mtx.lock();
+	std::string username = connection->get_username();
+	this->username_connection_map.erase(username);
+	this->workers.erase(username);
+	mtx.unlock();
+
 }
