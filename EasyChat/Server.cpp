@@ -32,13 +32,13 @@ void Server::start() {
 	while (1) {
 		SOCKET client_sock;
 		client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &client_addr_size);
-		
+
 		mtx.lock();
 		PSTR ip_PSTR;
 		inet_ntop(AF_INET, (struct sockaddr*)&client_addr, ip_PSTR, INET_ADDRSTRLEN);
 		std::string ip = std::string(ip_PSTR);
 		std::cout << "connection successful " << ip << std::endl;
-		std::unique_ptr<Connection> client_connection = std::unique_ptr<>(new Connection());
+		std::shared_ptr<Connection> client_connection = std::shared_ptr<Connection>(new Connection());
 		if (client_connection == nullptr)
 		{
 			Utils::memory_error();
@@ -53,7 +53,8 @@ void Server::start() {
 		if (true)
 		{
 			login_message = "OK";
-		} else
+		}
+		else
 		{
 			login_message = "RETRY";
 		}
@@ -61,15 +62,16 @@ void Server::start() {
 		client_connection->send_message(login_message);
 		if (login_message == "OK") {
 			this->username_connection_map[username] = client_connection;
-			std::thread worker(&Server::recv_msg, this, client);
-			workers[client_sock] = std::move(worker);
+			std::thread worker(&Server::reciver, this, client_connection);
+			workers[client_connection] = std::move(worker);
 		}
 
 		mtx.unlock();
 	}
-	for (auto client : clients) {
-		if (workers[client.get_socket_number()].joinable()) {
-			workers[client.get_socket_number()].join();
+
+	for (auto const& item : this->workers){
+		if (workers[item.first].joinable()) {
+			workers[item.first].join();
 		}
 	}
 }
@@ -95,7 +97,7 @@ void Server::remove_user(std::shared_ptr<Connection> connection)
 	mtx.lock();
 	std::string username = connection->get_username();
 	this->username_connection_map.erase(username);
-	this->workers.erase(username);
+	this->workers.erase(connection);
 	mtx.unlock();
 
 }
