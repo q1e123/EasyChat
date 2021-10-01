@@ -7,6 +7,8 @@
 
 int main(int argc, char* argv[])
 {
+	WSADATA wsa_data;
+	WSAStartup(MAKEWORD(1, 1), &wsa_data);
 	std::vector<std::string> parameter_list(argv + 1, argv + argc);
 	auto server_param_iterator = std::find(parameter_list.begin(), parameter_list.end(), "-server");
 	if(server_param_iterator != parameter_list.end())
@@ -37,4 +39,5 @@ int main(int argc, char* argv[])
 		client->connect_and_auth();
 		client->start_reciver();
 	}
+	WSACleanup();
 }
