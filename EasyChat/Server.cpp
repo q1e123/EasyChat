@@ -34,9 +34,9 @@ void Server::start() {
 		client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &client_addr_size);
 
 		mtx.lock();
-		PSTR ip_PSTR;
-		inet_ntop(AF_INET, (struct sockaddr*)&client_addr, ip_PSTR, INET_ADDRSTRLEN);
-		std::string ip = std::string(ip_PSTR);
+		char ip_c[INET_ADDRSTRLEN];
+		inet_ntop(AF_INET, (struct sockaddr*)&client_addr, ip_c, INET_ADDRSTRLEN);
+		std::string ip = std::string(ip_c);
 		std::cout << "connection successful " << ip << std::endl;
 		std::shared_ptr<Connection> client_connection = std::shared_ptr<Connection>(new Connection());
 		if (client_connection == nullptr)

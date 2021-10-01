@@ -11,13 +11,16 @@
 
 class Server_Down_Exception : public std::exception {
 public:
-	virtual const char* what() const throw();
-private:
+	virtual const char* what() const throw() {
+		return "Server is down";
+	}private:
 };
 
 class Login_Exception : public std::exception {
 public:
-	virtual const char* what() const throw();
+	virtual const char* what() const throw() {
+		return "Authentification failed";
+	}
 private:
 };
 
