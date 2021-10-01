@@ -74,8 +74,9 @@ void Server::start() {
 	}
 }
 
-void Server::reciver(std::unique_ptr<Connection> client_connection) {
-	std::cout << "reciver started for " << client_connection->get_username() << std::end;
+void Server::reciver(std::shared_ptr<Connection> client_connection) {
+	std::string username = client_connection->get_username();
+	std::cout << "reciver started for " << username << std::endl;
 	std::string message;
 	try {
 		while (message != "SOCKET_DOWN") {
@@ -84,14 +85,12 @@ void Server::reciver(std::unique_ptr<Connection> client_connection) {
 		}
 	}
 	catch (Client_Down_Exception exception) {
-		std::cout << client_connection->get_username() << " has disconnected" << std::endl;
-		mtx.lock();
-		this->username_connection_map.erase(client_connection->get_username());
-		mtx.unlock();
+		std::cout << username << " has disconnected" << std::endl;
+		this->remove_user(client_connection);
 	}
 }
 
-void Server::remove_user(std::unique_ptr<Connection> connection)
+void Server::remove_user(std::shared_ptr<Connection> connection)
 {
 	mtx.lock();
 	std::string username = connection->get_username();

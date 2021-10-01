@@ -36,7 +36,7 @@ private:
 	std::string server_name;
 	std::thread reciver;
 
-	std::unique_ptr<Connection> server_connection;
+	std::shared_ptr<Connection> server_connection;
 	struct sockaddr_in server_addr;
 
 	void connect_to_server();

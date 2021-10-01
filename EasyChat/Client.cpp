@@ -4,7 +4,7 @@
 
 Client::Client(int port_number, const std::string ip, const std::string username)
 {
-	this->server_connection = std::unique_ptr<Connection>(new Connection(port_number, ip, username));
+	this->server_connection = std::shared_ptr<Connection>(new Connection(port_number, ip, username));
 	if(this->server_connection == nullptr)
 	{
 		Utils::memory_error();
