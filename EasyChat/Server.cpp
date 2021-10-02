@@ -7,8 +7,23 @@
 Server::Server(std::string name, size_t port) {
 	this->name = name;
 	
-	server_sock = socket(AF_INET, SOCK_STREAM, 0);
 	this->server_connection = std::unique_ptr<Connection>(new Connection(port, LOOPBACK_ADDR, "SERVER"));
+	struct addrinfo hints;
+	struct addrinfo* server = NULL;
+
+	ZeroMemory(&hints, sizeof(hints));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_flags = AI_PASSIVE;
+	const char OPTION_VALUE = 1;
+
+	getaddrinfo(LOOPBACK_ADDR, std::to_string(port).c_str(), &hints, &server);
+	server_sock = socket(server->ai_family, server->ai_socktype, server->ai_protocol);
+	setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &OPTION_VALUE, sizeof(int)); //Make it possible to re-bind to a port that was used within the last 2 minutes
+	setsockopt(server_sock, IPPROTO_TCP, TCP_NODELAY, &OPTION_VALUE, sizeof(int)); //Used for interactive programs
+
+
 	memset(server_addr.sin_zero, '\0', sizeof(server_addr.sin_zero));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port_number);
@@ -17,12 +32,12 @@ Server::Server(std::string name, size_t port) {
 
 	client_addr_size = sizeof(client_addr);
 
-	if (bind(server_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) != 0) {
-		std::cerr << "binding uunsuccessful" << std::endl;
+	if (bind(server_sock, server->ai_addr, (int)server->ai_addrlen) != 0) {
+		std::cerr << "binding unsuccessful" << std::endl << WSAGetLastError() <<std::endl;
 		exit(1);
 	}
 
-	if (listen(server_sock, 5) != 0) {
+	if (listen(server_sock, SOMAXCONN) != 0) {
 		std::cerr << "listening unsuccessful" << std::endl;
 		exit(1);
 	}
@@ -65,7 +80,7 @@ void Server::start() {
 			std::thread worker(&Server::reciver, this, client_connection);
 			workers[client_connection] = std::move(worker);
 		}
-
+		client_connection->send_message("Welcome to " + this->name);
 		mtx.unlock();
 	}
 
