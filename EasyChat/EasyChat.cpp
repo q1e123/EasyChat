@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
 	WSADATA wsa_data;
 	WSAStartup(MAKEWORD(1, 1), &wsa_data);
 	std::vector<std::string> parameter_list(argv + 1, argv + argc);
+
 	auto server_param_iterator = std::find(parameter_list.begin(), parameter_list.end(), "-server");
 	if(server_param_iterator != parameter_list.end())
 	{
@@ -18,7 +19,12 @@ int main(int argc, char* argv[])
 
 		std::string server_name = *server_name_iterator;
 		std::string server_port_string = *server_port_it;
+
 		size_t server_port = Utils::string_to_size_t(server_port_string);
+
+		std::cout << "creating server with options:" << std::endl;
+		std::cout << "name: " << server_name << std::endl;
+		std::cout << "port: " << server_port << std::endl;
 
 		std::unique_ptr<Server> server(new Server(server_name, server_port));
 		server->start();
@@ -28,12 +34,14 @@ int main(int argc, char* argv[])
 	{
 		auto username_iterator = std::next(client_param_iterator, 1);
 		auto server_ip_iterator = std::next(client_param_iterator, 2);
-		auto server_port_iterator = std::next(client_param_iterator, 2);
+		auto server_port_iterator = std::next(client_param_iterator, 3);
 
 		std::string username = *username_iterator;
 		std::string server_ip = *server_ip_iterator;
 		std::string server_port_string = *server_port_iterator;
 		size_t server_port = Utils::string_to_size_t(server_port_string);
+
+		std::cout << "attempting to connect to " << server_ip << ":" << server_port << " as " << username << std::endl;
 
 		std::unique_ptr<Client> client(new Client(server_port, server_ip, username));
 		client->connect_and_auth();
