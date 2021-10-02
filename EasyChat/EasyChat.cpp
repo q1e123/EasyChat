@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
 		std::unique_ptr<Client> client(new Client(server_port, server_ip, username));
 		client->connect_and_auth();
 		client->start_reciver();
+		client->sender();
 	}
 	WSACleanup();
 }

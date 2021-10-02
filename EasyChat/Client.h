@@ -32,6 +32,7 @@ public:
 
 	void connect_and_auth();
 	void start_reciver();
+	void sender();
 
 	std::string get_server_name();
 	void set_server_name(std::string server_name);

@@ -76,7 +76,18 @@ void Client::recive_message() {
 	std::string message = "";
 	while (message!= "SOCKET_DOWN") {
 		message = this->server_connection->recive_message();
-		std::cout << message << std::endl;
+		if(message != "" || message != "\n")
+		{
+			std::cout << message << std::endl;
+		}
+	}
+}
+
+void Client::sender() {
+	while (true) {
+		std::string message = "";
+		std::cin >> message;
+		this->server_connection->send_message(message);
 	}
 }
 
