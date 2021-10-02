@@ -34,7 +34,7 @@ private:
 	socklen_t client_addr_size;
 	int port_number;
 
-	void send_to_all(std::string message);
+	void send_to_all(std::string username, std::string message);
 
 	void reciver(std::shared_ptr<Connection> client_connection);
 	void remove_user(std::shared_ptr<Connection> connection);
