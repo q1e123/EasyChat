@@ -1,7 +1,7 @@
-[![Contributors][contributors-shield]][https://github.com/q1e123/EasyChat/graphs/contributors]
-[![Forks][forks-shield]][https://github.com/q1e123/EasyChat/stargazers]
-[![Stargazers][stars-shield]][https://github.com/q1e123/EasyChat]
-[![Issues][issues-shield]][https://github.com/q1e123/EasyChat]
+[![Contributors][contributors-shield]](https://github.com/q1e123/EasyChat/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/q1e123/EasyChat/stargazers)
+[![Stargazers][stars-shield]](https://github.com/q1e123/EasyChat)
+[![Issues][issues-shield]](https://github.com/q1e123/EasyChat)
 
 
 
@@ -111,7 +111,7 @@ The port that is used by the server.
 <!-- ROADMAP -->
 ## Roadmap
 
-If you would like to know more about the future features visit (Trello board)[https://trello.com/b/pswIsrQx/easychat]
+If you would like to know more about the future features visit [Trello board](https://trello.com/b/pswIsrQx/easychat)
 
 
 <!-- LICENSE -->
