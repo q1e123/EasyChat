@@ -40,4 +40,6 @@ private:
 	void remove_user(std::shared_ptr<Connection> connection);
 
 	std::string get_wrapped_message(std::string username, std::string message);
+
+	void notify_users_new_connection(std::string username);
 };

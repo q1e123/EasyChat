@@ -81,6 +81,7 @@ void Server::start() {
 			workers[client_connection] = std::move(worker);
 		}
 		client_connection->send_message("Welcome to " + this->name);
+		this->notify_users_new_connection(username);
 		mtx.unlock();
 	}
 
@@ -134,5 +135,17 @@ void Server::send_to_all(std::string username, std::string message) {
 		}
 	}
 	mtx.unlock();
+	std::this_thread::sleep_for(WAIT_PERIOD);
+}
+
+void Server::notify_users_new_connection(std::string username)
+{
+	std::string message = username + " has connected";
+	for (auto const& item : this->username_connection_map) {
+		if (item.first != username)
+		{
+			item.second->send_message(message);
+		}
+	}
 	std::this_thread::sleep_for(WAIT_PERIOD);
 }
