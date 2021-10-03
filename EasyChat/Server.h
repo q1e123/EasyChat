@@ -37,9 +37,11 @@ private:
 	void send_to_all(std::string username, std::string message);
 
 	void reciver(std::shared_ptr<Connection> client_connection);
-	void remove_user(std::shared_ptr<Connection> connection);
 
 	std::string get_wrapped_message(std::string username, std::string message);
 
 	void notify_users_new_connection(std::string username);
+	void notify_users_user_disconnection(std::string username);
+
+	void remove_user(std::string username);
 };

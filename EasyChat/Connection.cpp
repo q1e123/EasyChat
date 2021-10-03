@@ -55,6 +55,9 @@ std::string Connection::recive_message()
     size_t message_size = get_size_from(recv_string);
     if (message_size > 0) {
         message = get_message(message_size);
+    } else
+    {
+        throw Client_Down_Exception();
     }
     return message;
 }

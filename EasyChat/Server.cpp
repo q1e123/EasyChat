@@ -97,26 +97,26 @@ void Server::reciver(std::shared_ptr<Connection> client_connection) {
 	std::cout << "reciver started for " << username << std::endl;
 	std::string message;
 	try {
-		while (message != "SOCKET_DOWN") {
+		while (true) {
 			message = client_connection->recive_message();
 			send_to_all(username, message);
 		}
 	}
 	catch (Client_Down_Exception exception) {
 		std::cout << username << " has disconnected" << std::endl;
-		this->remove_user(client_connection);
+		this->remove_user(username);
 	}
 }
 
-void Server::remove_user(std::shared_ptr<Connection> connection)
+void Server::remove_user(std::string username)
 {
 	mtx.lock();
-	std::string username = connection->get_username();
 	this->username_connection_map.erase(username);
-	this->workers.erase(connection);
+	this->notify_users_user_disconnection(username);
 	mtx.unlock();
 
 }
+
 
 std::string Server::get_wrapped_message(std::string username, std::string message)
 {
@@ -141,6 +141,18 @@ void Server::send_to_all(std::string username, std::string message) {
 void Server::notify_users_new_connection(std::string username)
 {
 	std::string message = username + " has connected";
+	for (auto const& item : this->username_connection_map) {
+		if (item.first != username)
+		{
+			item.second->send_message(message);
+		}
+	}
+	std::this_thread::sleep_for(WAIT_PERIOD);
+}
+
+void Server::notify_users_user_disconnection(std::string username)
+{
+	std::string message = username + " has disconnected";
 	for (auto const& item : this->username_connection_map) {
 		if (item.first != username)
 		{
