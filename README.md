@@ -42,6 +42,12 @@
 
 TODO
 
+### Features
+
+* public chat room
+* connection/ disconnection notifications
+* get online users command (/online) 
+
 ### Built With
 
 * C++ (WinSock)
