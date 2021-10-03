@@ -1,5 +1,6 @@
 #pragma once
 #pragma comment( lib, "ws2_32.lib")
+#include <functional>
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 
@@ -8,15 +9,20 @@
 #include <vector>
 #include <map>
 #include <sstream>
+#include <unordered_map>
 
 #include "Connection.h"
+typedef std::function<void(std::shared_ptr<Connection>)> FunctionType;
 
 #define LOOPBACK_ADDR	"192.168.56.1"
 #define DEFAULT_PORT 50005
 #define WAIT_PERIOD std::chrono::milliseconds(500)
 
+using pointer_function = void (*)(std::shared_ptr<Connection>);
+
 class Server {
 public:
+	Server();
 	Server(std::string name, size_t port = DEFAULT_PORT);
 	void start();
 private:
@@ -28,6 +34,7 @@ private:
 	std::map<std::string, std::shared_ptr<Connection>> username_connection_map;
 	std::shared_ptr<Connection> server_connection;
 	std::map<std::shared_ptr<Connection> , std::thread> workers;
+	std::map<std::string, pointer_function> commands;
 
 	struct sockaddr_in server_addr, client_addr;
 	SOCKET server_sock;
@@ -44,4 +51,8 @@ private:
 	void notify_users_user_disconnection(std::string username);
 
 	void remove_user(std::string username);
+
+	void build_commands_map();
+	void run_command(std::shared_ptr<Connection> user_connection, std::string command);
+	void send_online_users(std::shared_ptr<Connection> user_connection);
 };

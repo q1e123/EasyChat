@@ -99,7 +99,13 @@ void Server::reciver(std::shared_ptr<Connection> client_connection) {
 	try {
 		while (true) {
 			message = client_connection->recive_message();
-			send_to_all(username, message);
+			if(message[0] == '/')
+			{
+				this->run_command(client_connection, message);
+			} else
+			{
+				send_to_all(username, message);
+			}
 		}
 	}
 	catch (Client_Down_Exception exception) {
@@ -161,3 +167,28 @@ void Server::notify_users_user_disconnection(std::string username)
 	}
 	std::this_thread::sleep_for(WAIT_PERIOD);
 }
+
+void Server::run_command(std::shared_ptr<Connection> user_connection, std::string command)
+{
+	if (command == "/online")
+	{
+		send_online_users(user_connection);
+	}
+}
+
+void Server::send_online_users(std::shared_ptr<Connection> user_connection)
+{
+	std::string online_users_message = "ONLINE USERS\n";
+	std::string username = user_connection->get_username();
+	for(auto const& item : this->username_connection_map)
+	{
+		online_users_message += "* " + item.first;
+		if(item.first == username)
+		{
+			online_users_message += " (you)";
+		}
+		online_users_message += "\n";
+	}
+	user_connection->send_message(online_users_message);
+}
+
