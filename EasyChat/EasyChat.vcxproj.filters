@@ -16,6 +16,9 @@
     <Filter Include="Header Files\3rd-party">
       <UniqueIdentifier>{5df2715a-6d45-434d-b5b0-cdee56ce7862}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\3rd-party\SimpleIni">
+      <UniqueIdentifier>{b6cbc3d1-5c37-4960-b805-9db2122442a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EasyChat.cpp">
@@ -37,7 +40,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConvertUTF.c">
-      <Filter>Header Files\3rd-party</Filter>
+      <Filter>Header Files\3rd-party\SimpleIni</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleIni_Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_Driver.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,10 +66,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConvertUTF.h">
-      <Filter>Header Files\3rd-party</Filter>
+      <Filter>Header Files\3rd-party\SimpleIni</Filter>
     </ClInclude>
     <ClInclude Include="SimpleIni.h">
-      <Filter>Header Files\3rd-party</Filter>
+      <Filter>Header Files\3rd-party\SimpleIni</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleIni_Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Driver.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
