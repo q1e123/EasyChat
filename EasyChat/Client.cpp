@@ -86,7 +86,7 @@ void Client::recive_message() {
 void Client::sender() {
 	while (true) {
 		std::string message = "";
-		std::cin >> message;
+		std::getline(std::cin, message);
 		this->server_connection->send_message(message);
 	}
 }
