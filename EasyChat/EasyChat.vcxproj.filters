@@ -48,6 +48,9 @@
     <ClCompile Include="DB_Driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Crypto_Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DB_Driver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

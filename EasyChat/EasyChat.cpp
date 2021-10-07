@@ -4,6 +4,13 @@
 #include "Client.h"
 #include "Server.h"
 #include "Utils.h"
+#include "Crypto_Manager.h"
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <string>
+
+using namespace std;
 
 int main(int argc, char* argv[])
 {

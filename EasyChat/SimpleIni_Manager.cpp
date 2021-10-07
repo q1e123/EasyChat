@@ -10,11 +10,11 @@ SimpleIni_Manager::SimpleIni_Manager(std::string file_name)
 	}
 	this->init_authentification_map();
 }
-bool SimpleIni_Manager::check_authentification(std::string username, std::string password)
+bool SimpleIni_Manager::check_authentification(std::string username, std::string password_hash)
 {
 	if(this->isUsernameInAuthentificationMap(username))
 	{
-		bool query_result = (this->authentification_map[username] == password) ? true : false;
+		bool query_result = (this->authentification_map[username] == password_hash) ? true : false;
 		return query_result;
 	}
 	return false;

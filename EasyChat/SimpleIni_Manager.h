@@ -12,7 +12,7 @@ class SimpleIni_Manager : public DB_Driver
 {
 public:
 	SimpleIni_Manager(std::string file_name);
-	bool check_authentification(std::string username, std::string password) override;
+	bool check_authentification(std::string username, std::string password_hash) override;
 	void init();
 private:
 	std::map<std::string, std::string> authentification_map;
