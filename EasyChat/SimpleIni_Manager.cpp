@@ -28,10 +28,9 @@ void SimpleIni_Manager::init_authentification_map()
 
 		std::string user_key = object + ".user";
 		std::string user = this->ini_file.GetValue("users", user_key.c_str());
-		std::string password_key = object + ".password";
+		std::string password_key = object + ".password_hash";
 		std::string password_hash = this->ini_file.GetValue("users", password_key.c_str());
 		this->authentification_map[user] = password_hash;
-
 	}
 
 }
