@@ -6,7 +6,7 @@
 
 #include "DB_Driver.h"
 
-const size_t HASH_SIZE= 512;
+const size_t HASH_SIZE= 128;
 
 class SimpleIni_Manager : public DB_Driver
 {
