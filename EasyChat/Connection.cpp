@@ -36,7 +36,7 @@ std::string Connection::get_fixed_length_size(std::string message)
 void Connection::send_message(std::string message)
 {
     std::string encapsulated_string = get_fixed_length_size(message) + message;
-    size_t total_bytes_sent = 0;
+	size_t total_bytes_sent = 0;
     size_t bytes_sent = 0;
     while (total_bytes_sent < encapsulated_string.size()) {
         std::string message_left = encapsulated_string.substr(bytes_sent);

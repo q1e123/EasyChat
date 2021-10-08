@@ -1,10 +1,11 @@
 #include "Client.h"
 
+#include "Crypto_Manager.h"
 #include "Utils.h"
 
-Client::Client(int port_number, const std::string ip, const std::string username)
+Client::Client(int port_number, const std::string ip)
 {
-	this->server_connection = std::shared_ptr<Connection>(new Connection(port_number, ip, username));
+	this->server_connection = std::shared_ptr<Connection>(new Connection(port_number, ip));
 	if(this->server_connection == nullptr)
 	{
 		Utils::memory_error();
@@ -23,7 +24,7 @@ Client::~Client() {
 	this->server_connection.reset();
 }
 
-void Client::connect_and_auth() {
+void Client::connect_and_auth(std::string username, std::string password) {
 	try
 	{
 		connect_to_server();
@@ -36,7 +37,7 @@ void Client::connect_and_auth() {
 
 	try
 	{
-		authentification();
+		authentification(username, password);
 	}
 	catch (Login_Exception exception)
 	{
@@ -55,16 +56,21 @@ void Client::connect_to_server()
 	std::cout << "connection was successful" << std::endl;
 
 }
-
-void Client::authentification()
+#include <iostream>
+void Client::authentification(std::string username, std::string password)
 {
-	this->server_connection->send_message(this->server_connection->get_username());
+	std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
+	std::cout << password_hash << std::endl;
+	this->server_connection->send_message(username);
+	this->server_connection->send_message(password_hash);
 	this->server_name = this->server_connection->recive_message();
+	
 	std::string login_response = this->server_connection->recive_message();
 	if (login_response == "RETRY") {
 		throw Login_Exception();
 	}
 	std::cout << "login was successful" << std::endl;
+	this->server_connection->set_username(username);
 }
 
 void Client::start_reciver()

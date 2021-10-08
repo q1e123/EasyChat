@@ -53,18 +53,20 @@ int main(int argc, char* argv[])
 	if (client_param_iterator != parameter_list.end())
 	{
 		auto username_iterator = std::next(client_param_iterator, 1);
-		auto server_ip_iterator = std::next(client_param_iterator, 2);
-		auto server_port_iterator = std::next(client_param_iterator, 3);
+		auto password_iterator = std::next(client_param_iterator, 2);
+		auto server_ip_iterator = std::next(client_param_iterator, 3);
+		auto server_port_iterator = std::next(client_param_iterator, 4);
 
 		std::string username = *username_iterator;
+		std::string password = *password_iterator;
 		std::string server_ip = *server_ip_iterator;
 		std::string server_port_string = *server_port_iterator;
 		size_t server_port = Utils::string_to_size_t(server_port_string);
 
 		std::cout << "attempting to connect to " << server_ip << ":" << server_port << " as " << username << std::endl;
 
-		std::unique_ptr<Client> client(new Client(server_port, server_ip, username));
-		client->connect_and_auth();
+		std::unique_ptr<Client> client(new Client(server_port, server_ip));
+		client->connect_and_auth(username, password);
 		client->start_reciver();
 		client->sender();
 	}

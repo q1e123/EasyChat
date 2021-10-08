@@ -27,10 +27,10 @@ private:
 class Client
 {
 public:
-	Client(int port_number, const std::string ip, const std::string username = "Anon");
+	Client(int port_number, const std::string ip);
 	~Client();
 
-	void connect_and_auth();
+	void connect_and_auth(std::string username, std::string password);
 	void start_reciver();
 	void sender();
 
@@ -44,7 +44,7 @@ private:
 	struct sockaddr_in server_addr;
 
 	void connect_to_server();
-	void authentification();
+	void authentification(std::string username, std::string password);
 	void recive_message();
 };
 

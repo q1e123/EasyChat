@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Crypto_Manager.h"
 #include "Utils.h"
 
 Server::Server(std::string name, size_t port) {
@@ -60,20 +61,22 @@ void Server::start() {
 		}
 		client_connection->set_socket(client_sock);
 		std::string username = client_connection->recive_message();
+		std::string password_hash = client_connection->recive_message();
 		client_connection->set_username(username);
 
 		client_connection->send_message(this->name);
 
 		std::string login_message;
-		if (true)
+		if (this->db_driver->check_authentification(username, password_hash))
 		{
 			login_message = "OK";
+			std::cout << "authentification successful for " << username << std::endl;
 		}
 		else
 		{
 			login_message = "RETRY";
+			std::cout << "authentification failure for " << username << std::endl;
 		}
-
 		client_connection->send_message(login_message);
 		if (login_message == "OK") {
 			this->username_connection_map[username] = client_connection;
