@@ -192,3 +192,7 @@ void Server::send_online_users(std::shared_ptr<Connection> user_connection)
 	user_connection->send_message(online_users_message);
 }
 
+void Server::connect_to_database(Database_Driver_Type driver_type, std::string ini_file_path)
+{
+	this->db_driver = Database_Manager::get_db_driver(driver_type, ini_file_path);
+}

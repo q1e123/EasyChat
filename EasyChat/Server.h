@@ -12,6 +12,8 @@
 #include <unordered_map>
 
 #include "Connection.h"
+#include "Database_Manager.h"
+
 typedef std::function<void(std::shared_ptr<Connection>)> FunctionType;
 
 #define LOOPBACK_ADDR	"192.168.56.1"
@@ -24,7 +26,10 @@ class Server {
 public:
 	Server();
 	Server(std::string name, size_t port = DEFAULT_PORT);
+
 	void start();
+
+	void connect_to_database(Database_Driver_Type driver_type, std::string ini_file_path);
 private:
 	std::string name;
 
@@ -40,6 +45,8 @@ private:
 	SOCKET server_sock;
 	socklen_t client_addr_size;
 	int port_number;
+
+	std::shared_ptr<DB_Driver> db_driver;
 
 	void send_to_all(std::string username, std::string message);
 
