@@ -47,19 +47,19 @@ TODO
 * public chat room
 * connection/ disconnection notifications
 * get online users command (/online) 
+* authentification using ini files
 
 ### Built With
 
-* C++ (WinSock)
+* C++ (WinSock, OpenSSL)
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
 To get a local copy up and running follow these steps.
 
-### System Requiments
-
-TODO
+### Prerequisites
+[1. Build OpenSSL library for C++](https://www.youtube.com/watch?v=PMHEoBkxYaQ)
 
 ### Installation
 
@@ -68,6 +68,7 @@ TODO
    git clone https://github.com/q1e123/EasyChat.git
    ```
 2. Compile the project using Visual Studio
+3. Copy DLLs from *OpenSSL* to executable directory.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -107,6 +108,9 @@ The port that is used by the server.
 ```sh
 .\EasyChat.exe -client test 192.168.56.1 50005
 ```
+
+### Authentification
+For authentification you can use an ini file. For a template you can look at *users-template.ini* file.
 <!-- ROADMAP -->
 ## Roadmap
 
