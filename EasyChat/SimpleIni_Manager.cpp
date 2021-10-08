@@ -2,14 +2,16 @@
 
 #include <iostream>
 
+SimpleIni_Manager::SimpleIni_Manager()
+{
+	
+}
+
 SimpleIni_Manager::SimpleIni_Manager(std::string file_name)
 {
-	if (this->ini_file.LoadFile(file_name.c_str()) < 0) {
-		std::cerr << "Can't open database init file" << std::endl;
-		exit(1);
-	}
-	this->init_authentification_map();
+	this->open_ini_file(file_name);
 }
+
 bool SimpleIni_Manager::check_authentification(std::string username, std::string password_hash)
 {
 	if(this->isUsernameInAuthentificationMap(username))
@@ -42,4 +44,13 @@ bool SimpleIni_Manager::isUsernameInAuthentificationMap(std::string username)
 		return false;
 	}
 	return true;
+}
+
+void SimpleIni_Manager::open_ini_file(std::string file_name)
+{
+	if (this->ini_file.LoadFile(file_name.c_str()) < 0) {
+		std::cerr << "Can't open database init file" << std::endl;
+		exit(1);
+	}
+	this->init_authentification_map();
 }

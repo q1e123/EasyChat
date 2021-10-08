@@ -11,7 +11,11 @@ const size_t HASH_SIZE= 512;
 class SimpleIni_Manager : public DB_Driver
 {
 public:
+	SimpleIni_Manager();
 	SimpleIni_Manager(std::string file_name);
+
+	void open_ini_file(std::string file_name);
+
 	bool check_authentification(std::string username, std::string password_hash) override;
 	void init();
 private:
