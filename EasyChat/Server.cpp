@@ -82,6 +82,7 @@ void Server::start() {
 			this->username_connection_map[username] = client_connection;
 			std::thread worker(&Server::reciver, this, client_connection);
 			workers[client_connection] = std::move(worker);
+			this->send_online_users(client_connection);
 		}
 		client_connection->send_message("Welcome to " + this->name);
 		this->notify_users_new_connection(username);
