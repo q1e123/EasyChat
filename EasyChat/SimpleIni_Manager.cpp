@@ -24,11 +24,16 @@ bool SimpleIni_Manager::check_authentification(std::string username, std::string
 
 void SimpleIni_Manager::add_user(std::string username, std::string password_hash)
 {
+	if(this->isUsernameInAuthentificationMap(username))
+	{
+		return;
+	}
 	std::string object = "user" + std::to_string(this->last_id);
 	std::string user_key = object + ".user";
 	std::string password_key = object + ".password_hash";
 	this->ini_file.SetValue("users", user_key.c_str(), username.c_str());
 	this->ini_file.SetValue("users", password_key.c_str(), password_key.c_str());
+	this->authentification_map[username] = password_hash;
 	++this->last_id;
 }
 
