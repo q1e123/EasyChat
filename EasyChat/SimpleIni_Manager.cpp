@@ -22,9 +22,20 @@ bool SimpleIni_Manager::check_authentification(std::string username, std::string
 	return false;
 }
 
+void SimpleIni_Manager::add_user(std::string username, std::string password_hash)
+{
+	std::string object = "user" + std::to_string(this->last_id);
+	std::string user_key = object + ".user";
+	std::string password_key = object + ".password_hash";
+	this->ini_file.SetValue("users", user_key.c_str(), username.c_str());
+	this->ini_file.SetValue("users", password_key.c_str(), password_key.c_str());
+	++this->last_id;
+}
+
 void SimpleIni_Manager::init_authentification_map()
 {
 	size_t number_of_users = std::stol(this->ini_file.GetValue("users", "number_of_users_to_be_created"));
+	this->last_id = number_of_users - 1
 	for (size_t i = 0; i < number_of_users; ++i) {
 		std::string object = "user" + std::to_string(i);
 

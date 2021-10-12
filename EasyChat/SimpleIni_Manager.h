@@ -17,8 +17,10 @@ public:
 	void open_ini_file(std::string file_name);
 
 	bool check_authentification(std::string username, std::string password_hash) override;
-	void init();
+	void add_user(std::string username, std::string password_hash) override;
+
 private:
+	size_t last_id = 0;
 	std::map<std::string, std::string> authentification_map;
 
 	CSimpleIniA ini_file;
