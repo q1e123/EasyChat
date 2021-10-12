@@ -64,5 +64,5 @@ private:
 	void send_online_users(std::shared_ptr<Connection> user_connection);
 
 	void server_command_manager();
-	void add_new_user(std::string username, std::string password_hash);
+	void add_new_user(std::string username, std::string password);
 };

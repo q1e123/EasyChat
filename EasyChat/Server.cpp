@@ -213,8 +213,9 @@ void Server::connect_to_database(Database_Driver_Type driver_type, std::string i
 	this->db_driver = Database_Manager::get_db_driver(driver_type, ini_file_path);
 }
 
-void Server::add_new_user(std::string username, std::string password_hash)
+void Server::add_new_user(std::string username, std::string password)
 {
+	std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
 	this->db_driver->add_user(username, password_hash);
 }
 
