@@ -48,6 +48,7 @@ TODO
 * connection/ disconnection notifications
 * get online users command (/online) 
 * authentification using ini files
+* adding new users using /add command
 
 ### Built With
 
@@ -111,6 +112,12 @@ The port that is used by the server.
 
 ### Authentification
 For authentification you can use an ini file. For a template you can look at *users-template.ini* file.
+
+### Adding new users
+To add new users go to the server application and use the following command:
+```
+/add <username> <password>
+```
 <!-- ROADMAP -->
 ## Roadmap
 
