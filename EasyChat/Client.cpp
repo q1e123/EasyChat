@@ -56,11 +56,10 @@ void Client::connect_to_server()
 	std::cout << "connection was successful" << std::endl;
 
 }
-#include <iostream>
+
 void Client::authentification(std::string username, std::string password)
 {
 	std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
-	std::cout << password_hash << std::endl;
 	this->server_connection->send_message(username);
 	this->server_connection->send_message(password_hash);
 	this->server_name = this->server_connection->recive_message();
