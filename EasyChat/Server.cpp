@@ -45,6 +45,17 @@ Server::Server(std::string name, size_t port) {
 }
 
 void Server::start() {
+	std::thread server_module_worker(&Server::server_module, this);
+	std::thread server_command_manager_worker(&Server::server_command_manager, this);
+	server_module_worker.detach();
+	server_command_manager_worker.detach();
+	while (true)
+	{
+	}
+}
+
+void Server::server_module()
+{
 	while (1) {
 		SOCKET client_sock;
 		client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &client_addr_size);
@@ -89,12 +100,13 @@ void Server::start() {
 		mtx.unlock();
 	}
 
-	for (auto const& item : this->workers){
+	for (auto const& item : this->workers) {
 		if (workers[item.first].joinable()) {
 			workers[item.first].join();
 		}
 	}
 }
+
 
 void Server::reciver(std::shared_ptr<Connection> client_connection) {
 	std::string username = client_connection->get_username();
@@ -200,3 +212,29 @@ void Server::connect_to_database(Database_Driver_Type driver_type, std::string i
 {
 	this->db_driver = Database_Manager::get_db_driver(driver_type, ini_file_path);
 }
+
+void Server::add_new_user(std::string username, std::string password_hash)
+{
+	this->db_driver->add_user(username, password_hash);
+}
+
+void Server::server_command_manager()
+{
+	while (1)
+	{
+		std::string command_line;
+		std::getline(std::cin, command_line);
+		std::istringstream command_stream(command_line);
+		std::string command;
+		command_stream >> command;
+		if (command.find("/add") != std::string::npos)
+		{
+			std::string username, password_hash;
+			command_stream >> username >> password_hash;
+			this->add_new_user(username, password_hash);
+			std::cout << "added user " << username << std::endl;
+		}
+
+	}
+}
+
