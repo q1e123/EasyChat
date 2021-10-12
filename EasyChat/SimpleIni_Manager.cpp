@@ -9,6 +9,7 @@ SimpleIni_Manager::SimpleIni_Manager()
 
 SimpleIni_Manager::SimpleIni_Manager(std::string file_name)
 {
+	this->ini_file_name = file_name;
 	this->open_ini_file(file_name);
 }
 
@@ -28,19 +29,20 @@ void SimpleIni_Manager::add_user(std::string username, std::string password_hash
 	{
 		return;
 	}
+	++this->last_id;
 	std::string object = "user" + std::to_string(this->last_id);
 	std::string user_key = object + ".user";
 	std::string password_key = object + ".password_hash";
 	this->ini_file.SetValue("users", user_key.c_str(), username.c_str());
-	this->ini_file.SetValue("users", password_key.c_str(), password_key.c_str());
+	this->ini_file.SetValue("users", password_key.c_str(), password_hash.c_str());
+	this->ini_file.SaveFile(this->ini_file_name.c_str());
 	this->authentification_map[username] = password_hash;
-	++this->last_id;
 }
 
 void SimpleIni_Manager::init_authentification_map()
 {
 	size_t number_of_users = std::stol(this->ini_file.GetValue("users", "number_of_users_to_be_created"));
-	this->last_id = number_of_users - 1
+	this->last_id = number_of_users - 1;
 	for (size_t i = 0; i < number_of_users; ++i) {
 		std::string object = "user" + std::to_string(i);
 

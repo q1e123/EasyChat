@@ -22,7 +22,7 @@ public:
 private:
 	size_t last_id = 0;
 	std::map<std::string, std::string> authentification_map;
-
+	std::string ini_file_name;
 	CSimpleIniA ini_file;
 
 	void init_authentification_map();
