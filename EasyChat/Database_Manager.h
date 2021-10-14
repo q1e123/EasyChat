@@ -3,11 +3,12 @@
 
 #include <memory>
 
-#include "SimpleIni_Manager.h"
+#include "DB_Driver.h"
 
 enum Database_Driver_Type
 {
-	INI
+	INI,
+	SQLITE
 };
 
 namespace Database_Manager
