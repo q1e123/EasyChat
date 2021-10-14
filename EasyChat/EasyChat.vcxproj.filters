@@ -22,6 +22,9 @@
     <Filter Include="Header Files\3rd-party\SQLite">
       <UniqueIdentifier>{f443f2ee-66b9-4ee1-937a-79a8d5fdda08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SQL">
+      <UniqueIdentifier>{11c26ec2-9935-4282-bf98-1734dd075ba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EasyChat.cpp">
@@ -109,5 +112,8 @@
     <None Include="README.md" />
     <None Include="users-template.ini" />
     <None Include="packages.config" />
+    <None Include="SQL\create-user-table.sql">
+      <Filter>SQL</Filter>
+    </None>
   </ItemGroup>
 </Project>

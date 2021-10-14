@@ -18,5 +18,7 @@ private:
 	std::string database_file_path;
 	std::shared_ptr<sqlite3> database;
 
+	void create_user_table();
+
 
 };
