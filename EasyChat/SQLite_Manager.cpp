@@ -1,5 +1,7 @@
 #include "SQLite_Manager.h"
 
+#include <iostream>
+
 #include "Utils.h"
 
 SQLite_Manager::SQLite_Manager(std::string database_file_path)
@@ -21,22 +23,24 @@ SQLite_Manager::SQLite_Manager(std::string database_file_path)
     this->create_user_table();
 }
 
-static int callback(void* NotUsed, int argc, char** argv, char** azColName) {
-    int i;
-    for (i = 0; i < argc; i++) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+int SQLite_Manager::callback(void* data, int entries_number, char** entries, char** col_names) {
+    Table* table = static_cast<Table*>(data);
+    try {
+        table->emplace_back(entries, entries + entries_number);
     }
-    printf("\n");
-    return 0;
+    catch (...) {
+        return 1;
+    }
 }
-
 
 void SQLite_Manager::create_user_table()
 {
+    Table return_table;
     std::cout << "creating user table if it dosen't exists" << std::endl;
     std::string query = Utils::get_query("SQL/create-user-table.sql");
 	char* zErrMsg = 0;
-    sqlite3_exec(this->database.get(), query.c_str(), callback, 0, &zErrMsg);
+    sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+
 }
 
 
@@ -47,6 +51,16 @@ void SQLite_Manager::add_user(std::string username, std::string password_hash)
 
 bool SQLite_Manager::check_authentification(std::string username, std::string password_hash)
 {
-    return true;
+    Table return_table;
+    std::string query = Utils::get_query("SQL/check-authentification.sql");
+    Utils::replace(query, "USERNAME", username);
+    Utils::replace(query, "PASSWORD", password_hash);
+    char* zErrMsg = 0;
+    sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+    if(return_table.size() < 1)
+    {
+        return true;
+    }
+    return false;
 }
 

@@ -1,12 +1,13 @@
 #pragma once
-#include <iostream>
-
 #include "DB_Driver.h"
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include <sqlite3.h>
+
+typedef std::vector<std::vector<std::string>> Table;
 
 class SQLite_Manager : public DB_Driver
 {
@@ -18,7 +19,6 @@ private:
 	std::string database_file_path;
 	std::shared_ptr<sqlite3> database;
 
+	static int callback(void* data, int entries_number, char** entries, char** col_names);
 	void create_user_table();
-
-
 };

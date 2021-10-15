@@ -115,5 +115,8 @@
     <None Include="SQL\create-user-table.sql">
       <Filter>SQL</Filter>
     </None>
+    <None Include="SQL\check-authentification.sql">
+      <Filter>SQL</Filter>
+    </None>
   </ItemGroup>
 </Project>
