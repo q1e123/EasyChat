@@ -185,6 +185,7 @@
     <None Include="README.md" />
     <None Include="SQL\check-authentification.sql" />
     <None Include="SQL\create-user-table.sql" />
+    <None Include="SQL\insert-new-user.sql" />
     <None Include="users-template.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

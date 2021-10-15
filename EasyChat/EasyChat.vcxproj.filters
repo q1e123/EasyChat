@@ -118,5 +118,8 @@
     <None Include="SQL\check-authentification.sql">
       <Filter>SQL</Filter>
     </None>
+    <None Include="SQL\insert-new-user.sql">
+      <Filter>SQL</Filter>
+    </None>
   </ItemGroup>
 </Project>
