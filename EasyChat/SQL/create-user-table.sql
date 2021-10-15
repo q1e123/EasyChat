@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS User(
-    id INT PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY,
     username TEXT NOT NULL,
     password TEXT NOT NULL
 )
