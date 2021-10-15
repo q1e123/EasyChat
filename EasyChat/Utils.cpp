@@ -31,11 +31,10 @@ std::string Utils::get_query(std::string file)
 	return query;
 }
 
-void Utils::replace(std::string string, std::string substring_to_replace, std::string replacement)
+std::string Utils::replace(std::string string, std::string substring_to_replace, std::string replacement)
 {
 
 	size_t start_position = string.find(substring_to_replace);
-	if (start_position == std::string::npos)
-		return;
 	string.replace(start_position, substring_to_replace.length(), replacement);
+	return string;
 }

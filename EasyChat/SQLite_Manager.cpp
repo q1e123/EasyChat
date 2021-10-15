@@ -48,10 +48,13 @@ void SQLite_Manager::add_user(std::string username, std::string password_hash)
 {
     Table return_table;
     std::string query = Utils::get_query("SQL/insert-new-user.sql");
-    Utils::replace(query, "USERNAME", username);
-    Utils::replace(query, "PASSWORD", password_hash);
+    query = Utils::replace(query, "USERNAME", username);
+    query = Utils::replace(query, "PASSWORD", password_hash);
     char* zErrMsg = 0;
+    sqlite3_exec(this->database.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+    sqlite3_exec(this->database.get(), "COMMIT;", NULL, NULL, NULL);
+
 }
 
 bool SQLite_Manager::check_authentification(std::string username, std::string password_hash)

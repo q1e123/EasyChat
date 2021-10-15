@@ -9,5 +9,5 @@ namespace Utils
 
 	std::string get_query(std::string file);
 
-	void replace(std::string string, std::string substring_to_replace, std::string replacement);
+	std::string replace(std::string string, std::string substring_to_replace, std::string replacement);
 }
