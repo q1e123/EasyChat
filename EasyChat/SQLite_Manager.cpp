@@ -61,11 +61,11 @@ bool SQLite_Manager::check_authentification(std::string username, std::string pa
 {
     Table return_table;
     std::string query = Utils::get_query("SQL/check-authentification.sql");
-    Utils::replace(query, "USERNAME", username);
-    Utils::replace(query, "PASSWORD", password_hash);
+    query = Utils::replace(query, "USERNAME", username);
+    query = Utils::replace(query, "PASSWORD", password_hash);
     char* zErrMsg = 0;
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
-    if(return_table.size() < 1)
+    if(return_table.size() == 1)
     {
         return true;
     }
