@@ -49,6 +49,7 @@ TODO
 * get online users command (/online) 
 * authentification using ini files
 * adding new users using /add command
+* authentification using SQLite
 
 ### Built With
 
