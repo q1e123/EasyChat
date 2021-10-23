@@ -121,5 +121,11 @@
     <None Include="SQL\insert-new-user.sql">
       <Filter>SQL</Filter>
     </None>
+    <None Include="SQL\insert-authentification-entry.sql">
+      <Filter>SQL</Filter>
+    </None>
+    <None Include="SQL\create-authentification-table.sql">
+      <Filter>SQL</Filter>
+    </None>
   </ItemGroup>
 </Project>

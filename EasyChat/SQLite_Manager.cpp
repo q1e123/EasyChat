@@ -21,6 +21,7 @@ SQLite_Manager::SQLite_Manager(std::string database_file_path)
         std::cout << "SQLite database opened successfully" << std::endl;
     }
     this->create_user_table();
+    this->create_authentification_table();
 }
 
 int SQLite_Manager::callback(void* data, int entries_number, char** entries, char** col_names) {
@@ -40,7 +41,6 @@ void SQLite_Manager::create_user_table()
     std::string query = Utils::get_query("SQL/create-user-table.sql");
 	char* zErrMsg = 0;
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
-
 }
 
 
@@ -72,3 +72,17 @@ bool SQLite_Manager::check_authentification(std::string username, std::string pa
     return false;
 }
 
+void SQLite_Manager::create_authentification_table()
+{
+    Table return_table;
+    std::cout << "creating authentification table if it dosen't exists" << std::endl;
+    std::string query = Utils::get_query("SQL/create-authentification-table.sql");
+    char* zErrMsg = 0;
+    sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+}
+
+
+void SQLite_Manager::add_authentification_entry(std::string username, std::string status)
+{
+	return;	
+}
