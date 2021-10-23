@@ -186,6 +186,7 @@
     <None Include="SQL\check-authentification.sql" />
     <None Include="SQL\create-authentification-table.sql" />
     <None Include="SQL\create-user-table.sql" />
+    <None Include="SQL\get-user.sql" />
     <None Include="SQL\insert-authentification-entry.sql" />
     <None Include="SQL\insert-new-user.sql" />
     <None Include="users-template.ini" />
