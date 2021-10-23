@@ -4,7 +4,14 @@
 class User
 {
 public:
-	User(size_t id, std::string username, std::string password_hash);
+	User(const size_t id, const std::string& username, const std::string& password_hash)
+		: id(id),
+		  username(username),
+		  password_hash(password_hash)
+	{
+	}
+
+	~User();
 	size_t get_id() const;
 	void set_id(const size_t id);
 	std::string get_username() const;

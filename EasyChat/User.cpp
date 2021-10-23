@@ -1,5 +1,13 @@
 #include "User.h"
 
+User::~User()
+{
+	this->id = 0;
+	this->username = "";
+	this->password_hash = "";
+}
+
+
 size_t User::get_id() const
 {
 	return id;
