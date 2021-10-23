@@ -100,8 +100,19 @@ std::shared_ptr<User> SQLite_Manager::get_user(std::string username)
     return nullptr;
 }
 
-
 void SQLite_Manager::add_authentification_entry(std::string username, std::string status, std::string ip)
 {
-    return;
+    time_t now = time(0);
+    std::string timestamp = ctime(&now);
+    Table return_table;
+    std::string query = Utils::get_query("SQL/insert-authentification-entry.sql");
+    std::shared_ptr<User> user = this->get_user(username);
+    query = Utils::replace(query, "USER_ID", std::to_string(user->get_id()));
+    query = Utils::replace(query, "STATUS", status);
+    query = Utils::replace(query, "IP", ip);
+    query = Utils::replace(query, "TIMESTAMP", timestamp);
+    char* zErrMsg = 0;
+    sqlite3_exec(this->database.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
+    sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+    sqlite3_exec(this->database.get(), "COMMIT;", NULL, NULL, NULL);
 }
