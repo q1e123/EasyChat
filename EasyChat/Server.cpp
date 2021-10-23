@@ -78,16 +78,20 @@ void Server::server_module()
 		client_connection->send_message(this->name);
 
 		std::string login_message;
+		std::string status;
 		if (this->db_driver->check_authentification(username, password_hash))
 		{
 			login_message = "OK";
+			status = "SUCCESS";
 			std::cout << "authentification successful for " << username << std::endl;
 		}
 		else
 		{
 			login_message = "RETRY";
+			status = "FAILURE";
 			std::cout << "authentification failure for " << username << std::endl;
 		}
+		this->db_driver->add_authentification_entry(username, status, ip);
 		client_connection->send_message(login_message);
 		if (login_message == "OK") {
 			this->username_connection_map[username] = client_connection;
