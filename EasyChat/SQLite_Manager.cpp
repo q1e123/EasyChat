@@ -54,7 +54,6 @@ void SQLite_Manager::add_user(std::string username, std::string password_hash)
     sqlite3_exec(this->database.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
     sqlite3_exec(this->database.get(), "COMMIT;", NULL, NULL, NULL);
-
 }
 
 bool SQLite_Manager::check_authentification(std::string username, std::string password_hash)
@@ -102,7 +101,7 @@ std::shared_ptr<User> SQLite_Manager::get_user(std::string username)
 }
 
 
-void SQLite_Manager::add_authentification_entry(std::string username, std::string status)
+void SQLite_Manager::add_authentification_entry(std::string username, std::string status, std::string ip)
 {
     return;
 }

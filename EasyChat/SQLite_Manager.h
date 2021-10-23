@@ -17,7 +17,7 @@ public:
 	SQLite_Manager(std::string database_file_path);
 	void add_user(std::string username, std::string password_hash) override;
 	bool check_authentification(std::string username, std::string password_hash) override;
-	void add_authentification_entry(std::string username, std::string status) override;
+	void add_authentification_entry(std::string username, std::string status, std::string ip) override;
 private:
 	std::string database_file_path;
 	std::shared_ptr<sqlite3> database;

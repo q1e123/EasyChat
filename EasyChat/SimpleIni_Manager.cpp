@@ -73,7 +73,7 @@ void SimpleIni_Manager::open_ini_file(std::string file_name)
 	this->init_authentification_map();
 }
 
-void SimpleIni_Manager::add_authentification_entry(std::string username, std::string status)
+void SimpleIni_Manager::add_authentification_entry(std::string username, std::string status, std::string ip)
 {
 	return;
 }
