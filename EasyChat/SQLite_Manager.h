@@ -7,6 +7,8 @@
 
 #include <sqlite3.h>
 
+#include "User.h"
+
 typedef std::vector<std::vector<std::string>> Table;
 
 class SQLite_Manager : public DB_Driver
@@ -16,7 +18,6 @@ public:
 	void add_user(std::string username, std::string password_hash) override;
 	bool check_authentification(std::string username, std::string password_hash) override;
 	void add_authentification_entry(std::string username, std::string status) override;
-
 private:
 	std::string database_file_path;
 	std::shared_ptr<sqlite3> database;
@@ -24,4 +25,6 @@ private:
 	static int callback(void* data, int entries_number, char** entries, char** col_names);
 	void create_user_table();
 	void create_authentification_table();
+
+	std::shared_ptr<User> get_user(std::string username);
 };

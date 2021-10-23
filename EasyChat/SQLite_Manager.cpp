@@ -81,8 +81,28 @@ void SQLite_Manager::create_authentification_table()
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
 }
 
+std::shared_ptr<User> SQLite_Manager::get_user(std::string username)
+{
+    Table return_table;
+    std::string query = Utils::get_query("SQL/get-user.sql");
+    query = Utils::replace(query, "USERNAME", username);
+    char* zErrMsg = 0;
+    sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
+    if (return_table.size() == 1)
+    {
+        std::vector<std::string> row = return_table.at(0);
+        size_t id = std::stoi(row.at(0));
+        std::string username = row.at(1);
+        std::string password_hash = row.at(2);
+
+        std::shared_ptr<User> user = std::shared_ptr<User>(new User(id, username, password_hash));
+        return user;
+    }
+    return nullptr;
+}
+
 
 void SQLite_Manager::add_authentification_entry(std::string username, std::string status)
 {
-	return;	
+    return;
 }
