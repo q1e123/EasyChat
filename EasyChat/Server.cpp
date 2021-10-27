@@ -223,6 +223,12 @@ void Server::add_new_user(std::string username, std::string password)
 	this->db_driver->add_user(username, password_hash);
 }
 
+void Server::delete_user(std::string username)
+{
+	this->db_driver->delete_user(username);
+}
+
+
 void Server::server_command_manager()
 {
 	while (1)
@@ -238,6 +244,12 @@ void Server::server_command_manager()
 			command_stream >> username >> password_hash;
 			this->add_new_user(username, password_hash);
 			std::cout << "added user " << username << std::endl;
+		} else if (command.find("/delete") != std::string::npos)
+		{
+			std::string username;
+			command_stream >> username;
+			this->delete_user(username);
+			std::cout << "deleted user " << username << std::endl;
 		}
 
 	}

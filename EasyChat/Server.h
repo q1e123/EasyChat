@@ -65,4 +65,5 @@ private:
 
 	void server_command_manager();
 	void add_new_user(std::string username, std::string password);
+	void delete_user(std::string username);
 };
