@@ -1,6 +1,7 @@
 #include "SimpleIni_Manager.h"
 
 #include <iostream>
+#include <fstream>
 
 SimpleIni_Manager::SimpleIni_Manager()
 {
@@ -75,5 +76,13 @@ void SimpleIni_Manager::open_ini_file(std::string file_name)
 
 void SimpleIni_Manager::add_authentification_entry(std::string username, std::string status, std::string ip)
 {
-	return;
+	time_t now = time(0);
+	std::string timestamp = ctime(&now);
+	timestamp[timestamp.size()-1] = 0;
+
+	std::string message = "[" + timestamp + "] " + username + " authentification status - " + status + "(" + ip + ")" ;
+	std::fstream log_file;
+	log_file.open("log.txt", std::ios_base::app);
+	log_file << message << std::endl;
+	log_file.close();
 }
