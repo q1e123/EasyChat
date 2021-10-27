@@ -183,6 +183,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="delete-user.sql" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="SQL\check-authentification.sql" />
