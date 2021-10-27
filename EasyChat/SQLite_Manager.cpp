@@ -116,3 +116,14 @@ void SQLite_Manager::add_authentification_entry(std::string username, std::strin
     sqlite3_exec(this->database.get(), query.c_str(), this->callback, &return_table, &zErrMsg);
     sqlite3_exec(this->database.get(), "COMMIT;", NULL, NULL, NULL);
 }
+
+void SQLite_Manager::delete_user(std::string username)
+{
+	return;
+}
+
+void SQLite_Manager::modify_user(std::string password_hash)
+{
+	return;
+}
+

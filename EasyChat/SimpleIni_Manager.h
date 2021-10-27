@@ -18,8 +18,11 @@ public:
 
 	bool check_authentification(std::string username, std::string password_hash) override;
 	void add_user(std::string username, std::string password_hash) override;
-	void add_authentification_entry(std::string username, std::string status, std::string ip) override;
+	void delete_user(std::string username) override;
+	void modify_user(std::string password_hash) override;
 
+	void add_authentification_entry(std::string username, std::string status, std::string ip) override;
+	
 private:
 	size_t last_id = 0;
 	std::map<std::string, std::string> authentification_map;

@@ -86,3 +86,14 @@ void SimpleIni_Manager::add_authentification_entry(std::string username, std::st
 	log_file << message << std::endl;
 	log_file.close();
 }
+
+
+void SimpleIni_Manager::delete_user(std::string username)
+{
+	return;
+}
+
+void SimpleIni_Manager::modify_user(std::string password_hash)
+{
+	return;
+}
