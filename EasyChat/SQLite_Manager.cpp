@@ -132,6 +132,7 @@ void SQLite_Manager::modify_user(std::string username, std::string password_hash
 {
     Table return_table;
     std::string query = Utils::get_query("SQL/modify-user.sql");
+    query = Utils::replace(query, "USERNAME", username);
     query = Utils::replace(query, "PASSWORD", password_hash);
     char* zErrMsg = 0;
     sqlite3_exec(this->database.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
