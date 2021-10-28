@@ -93,7 +93,7 @@ void SimpleIni_Manager::delete_user(std::string username)
 	return;
 }
 
-void SimpleIni_Manager::modify_user(std::string password_hash)
+void SimpleIni_Manager::modify_user(std::string username, std::string password_hash)
 {
 	return;
 }

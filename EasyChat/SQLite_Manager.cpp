@@ -128,7 +128,7 @@ void SQLite_Manager::delete_user(std::string username)
     sqlite3_exec(this->database.get(), "COMMIT;", NULL, NULL, NULL);
 }
 
-void SQLite_Manager::modify_user(std::string password_hash)
+void SQLite_Manager::modify_user(std::string username, std::string password_hash)
 {
     Table return_table;
     std::string query = Utils::get_query("SQL/modify-user.sql");
