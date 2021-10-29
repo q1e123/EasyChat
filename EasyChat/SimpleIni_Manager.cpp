@@ -98,5 +98,8 @@ void SimpleIni_Manager::delete_user(std::string username)
 
 void SimpleIni_Manager::modify_user(std::string username, std::string password_hash)
 {
-	return;
+	User user = this->authentification_map[username];
+	std::string key = "user" + std::to_string(user.get_id()) + ".password_hash";
+	this->ini_file.SetValue("users", key.c_str(), password_hash);
+
 }
