@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 SimpleIni_Manager::SimpleIni_Manager()
 {
@@ -84,8 +85,20 @@ void SimpleIni_Manager::add_authentification_entry(std::string username, std::st
 	timestamp[timestamp.size()-1] = 0;
 
 	std::string message = "[" + timestamp + "] " + username + " authentification status - " + status + "(" + ip + ")" ;
+	std::string log_file_path;
+	size_t log_counter = 0;
+	while (true)
+	{
+		log_file_path = "log-" + std::to_string(log_counter) + ".txt";
+		size_t size = std::filesystem::file_size(log_file_path);
+		if (size < MAXIMUM_LOG_SIZE)
+		{
+			break;
+		}
+		++log_counter;
+	}
 	std::fstream log_file;
-	log_file.open("log.txt", std::ios_base::app);
+	log_file.open(log_file_path, std::ios_base::app);
 	log_file << message << std::endl;
 	log_file.close();
 }

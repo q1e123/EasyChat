@@ -25,6 +25,7 @@ public:
 	void add_authentification_entry(std::string username, std::string status, std::string ip) override;
 	
 private:
+	const size_t MAXIMUM_LOG_SIZE = 8 * 1024 * 1024;
 	size_t last_id = 0;
 	std::map<std::string, User> authentification_map;
 	std::string ini_file_name;
