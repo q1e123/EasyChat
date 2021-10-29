@@ -5,6 +5,7 @@
 #include "SimpleIni.h"
 
 #include "DB_Driver.h"
+#include "User.h"
 
 const size_t HASH_SIZE= 128;
 
@@ -25,7 +26,7 @@ public:
 	
 private:
 	size_t last_id = 0;
-	std::map<std::string, std::string> authentification_map;
+	std::map<std::string, User> authentification_map;
 	std::string ini_file_name;
 	CSimpleIniA ini_file;
 

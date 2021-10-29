@@ -18,7 +18,7 @@ bool SimpleIni_Manager::check_authentification(std::string username, std::string
 {
 	if(this->isUsernameInAuthentificationMap(username))
 	{
-		bool query_result = (this->authentification_map[username] == password_hash) ? true : false;
+		bool query_result = (this->authentification_map[username].get_password_hash() == password_hash) ? true : false;
 		return query_result;
 	}
 	return false;
@@ -37,7 +37,8 @@ void SimpleIni_Manager::add_user(std::string username, std::string password_hash
 	this->ini_file.SetValue("users", user_key.c_str(), username.c_str());
 	this->ini_file.SetValue("users", password_key.c_str(), password_hash.c_str());
 	this->ini_file.SaveFile(this->ini_file_name.c_str());
-	this->authentification_map[username] = password_hash;
+	User user(last_id, username, password_hash);
+	this->authentification_map[username] = user;
 }
 
 void SimpleIni_Manager::init_authentification_map()
@@ -48,17 +49,19 @@ void SimpleIni_Manager::init_authentification_map()
 		std::string object = "user" + std::to_string(i);
 
 		std::string user_key = object + ".user";
-		std::string user = this->ini_file.GetValue("users", user_key.c_str());
+		std::string username = this->ini_file.GetValue("users", user_key.c_str());
 		std::string password_key = object + ".password_hash";
 		std::string password_hash = this->ini_file.GetValue("users", password_key.c_str());
-		this->authentification_map[user] = password_hash;
+		User user(i, username, password_hash);
+		this->authentification_map[username] = user;
 	}
 
 }
 
 bool SimpleIni_Manager::isUsernameInAuthentificationMap(std::string username)
 {
-	if(this->authentification_map[username].length() < HASH_SIZE)
+	std::string password_hash = this->authentification_map[username].get_password_hash();
+	if(password_hash.length() < HASH_SIZE)
 	{
 		return false;
 	}

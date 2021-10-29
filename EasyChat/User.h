@@ -4,6 +4,7 @@
 class User
 {
 public:
+	User(){}
 	User(const size_t id, const std::string& username, const std::string& password_hash)
 		: id(id),
 		  username(username),
