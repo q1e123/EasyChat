@@ -93,13 +93,20 @@ void SimpleIni_Manager::add_authentification_entry(std::string username, std::st
 
 void SimpleIni_Manager::delete_user(std::string username)
 {
-	return;
+	User user = this->authentification_map[username];
+	std::string object = "user" + std::to_string(user.get_id());
+	std::string user_key = object + ".user";
+	std::string password_key = object + ".password_hash";
+	this->ini_file.Delete("users", user_key.c_str());
+	this->ini_file.Delete("users", password_key.c_str());
+	this->ini_file.SaveFile(this->ini_file_name.c_str());
+
 }
 
 void SimpleIni_Manager::modify_user(std::string username, std::string password_hash)
 {
 	User user = this->authentification_map[username];
 	std::string key = "user" + std::to_string(user.get_id()) + ".password_hash";
-	this->ini_file.SetValue("users", key.c_str(), password_hash);
-
+	this->ini_file.SetValue("users", key.c_str(), password_hash.c_str());
+	this->ini_file.SaveFile(this->ini_file_name.c_str());
 }
