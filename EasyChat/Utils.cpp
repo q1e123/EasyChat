@@ -52,3 +52,16 @@ size_t Utils::gcd(size_t a, size_t b)
 		b = mod_result;
 	}
 }
+
+template <class T>
+std::vector<T> Utils::string_to_vector(std::string str)
+{
+	std::vector<T> result;
+	std::stringstream stream(str);
+	T element;
+	while (stream >> element)
+	{
+		result.push_back(element);
+	}
+	return result''
+}
