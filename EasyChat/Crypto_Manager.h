@@ -4,10 +4,11 @@
 
 
 namespace Crypto_Manager{
-	const size_t P = 99371;
-	const size_t Q = 93911;
-	const size_t N = P * Q;
-	const size_t PHI = (P - 1) * (Q - 1);
+	const double P = 13;
+	const double Q = 11;
+	const double N = P * Q;
+	const double PHI = (P - 1) * (Q - 1);
+	const double E = 7;
 
 	std::string get_sha3_512_hash(std::string message);
 	std::string bytes_to_hex_string(const std::vector<uint8_t>& bytes);

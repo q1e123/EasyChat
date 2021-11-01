@@ -37,46 +37,18 @@ std::string Crypto_Manager::get_sha3_512_hash(std::string input)
 
 double Crypto_Manager::rsa_encrypt_char(char c)
 {
-    double track;
-    double e = 7;
-    while (e < Crypto_Manager::PHI) {
-        track = Utils::gcd(e, Crypto_Manager::PHI);
-        if (track == 1)
-        {
-            break;
-        }
-        else
-        {
-            e++;
-        }
-    }
-    double d1 = 1 / e;
-    double d = fmod(d1, Crypto_Manager::PHI);
     double message = static_cast<double>(c);
-    double encrypted = pow(message, e);
-    encrypted = fmod(encrypted, Crypto_Manager::N);
+    double encrypted = pow(message, Crypto_Manager::E);
+    //encrypted = fmod(encrypted, Crypto_Manager::N);
     return encrypted;
 }
 
 char Crypto_Manager::rsa_decrypt_char(double encrypted)
 {
-    double track;
-    double e = 7;
-    while (e < Crypto_Manager::PHI) {
-        track = Utils::gcd(e, Crypto_Manager::PHI);
-        if (track == 1)
-        {
-            break;
-        }
-        else
-        {
-            e++;
-        }
-    }
-    double d1 = 1 / e;
+    double d1 = 1 / Crypto_Manager::E;
     double d = fmod(d1, Crypto_Manager::PHI);
-    double m = pow(encrypted, d);
-    m = fmod(m, Crypto_Manager::N);
-    char c = static_cast<char>(m);
+    double decrypted = pow(encrypted, d);
+    decrypted = fmod(decrypted, Crypto_Manager::N);
+    char c = static_cast<char>(round(decrypted));
     return c;
 }
