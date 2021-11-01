@@ -52,9 +52,9 @@ double Crypto_Manager::rsa_encrypt_char(char c)
     }
     double d1 = 1 / e;
     double d = fmod(d1, Crypto_Manager::PHI);
-    double message = double(c);
-    double encrypted = pow(message, e);    double m = pow(c, d);
-    encrypted = fmod(c, Crypto_Manager::N);
+    double message = static_cast<double>(c);
+    double encrypted = pow(message, e);
+    encrypted = fmod(encrypted, Crypto_Manager::N);
     return encrypted;
 }
 
@@ -77,6 +77,6 @@ char Crypto_Manager::rsa_decrypt_char(double encrypted)
     double d = fmod(d1, Crypto_Manager::PHI);
     double m = pow(encrypted, d);
     m = fmod(m, Crypto_Manager::N);
-    char c = char(m);
-    return encrypted;
+    char c = static_cast<char>(m);
+    return c;
 }
