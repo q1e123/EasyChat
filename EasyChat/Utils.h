@@ -6,6 +6,7 @@ namespace Utils
 	void memory_error();
 
 	size_t string_to_size_t(std::string string);
+	size_t gcd(size_t a, size_t b);
 
 	std::string get_query(std::string file);
 

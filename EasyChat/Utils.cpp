@@ -38,3 +38,17 @@ std::string Utils::replace(std::string string, std::string substring_to_replace,
 	string.replace(start_position, substring_to_replace.length(), replacement);
 	return string;
 }
+
+size_t Utils::gcd(size_t a, size_t b)
+{
+	size_t mod_result;
+	while (true) {
+		mod_result = a % b;
+		if (mod_result == 0)
+		{
+			return b;
+		}
+		a = b;
+		b = mod_result;
+	}
+}
