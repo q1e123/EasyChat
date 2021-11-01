@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "Crypto_Manager.h"
 #include "Server.h"
 
 Connection::Connection(int port_number, const std::string ip, const std::string username)
@@ -35,6 +36,7 @@ std::string Connection::get_fixed_length_size(std::string message)
 
 void Connection::send_message(std::string message)
 {
+
     std::string encapsulated_string = get_fixed_length_size(message) + message;
 	size_t total_bytes_sent = 0;
     size_t bytes_sent = 0;
@@ -168,4 +170,11 @@ std::string Connection::get_ip()
 void Connection::set_ip(std::string ip)
 {
     this->ip= ip;
+}
+
+std::string Connection::encrypt_message(std::string message)
+{
+    std::vector<double> encryption = Crypto_Manager::rsa_encrypt(message);
+    std::string encryption_string = std::string(encryption.begin(), encryption.end());
+    return encryption_string;
 }

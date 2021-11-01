@@ -70,5 +70,8 @@ private:
     int socket_close();
     int socket_quit();
     bool socket_check();
+
+    std::string encrypt_message(std::string message);
+    std::string decrypt_message(std::string package);
 };
 
