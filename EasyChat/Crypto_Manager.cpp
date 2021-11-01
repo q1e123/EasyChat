@@ -39,7 +39,6 @@ double Crypto_Manager::rsa_encrypt_char(char c)
 {
     double message = static_cast<double>(c);
     double encrypted = pow(message, Crypto_Manager::E);
-    //encrypted = fmod(encrypted, Crypto_Manager::N);
     return encrypted;
 }
 
@@ -51,4 +50,15 @@ char Crypto_Manager::rsa_decrypt_char(double encrypted)
     decrypted = fmod(decrypted, Crypto_Manager::N);
     char c = static_cast<char>(round(decrypted));
     return c;
+}
+
+std::vector<double> Crypto_Manager::rsa_encrypt(std::string message)
+{
+    std::vector<double> encryption;
+	for (auto c: message)
+	{
+        double encrypted_char = Crypto_Manager::rsa_encrypt_char(c);
+        encryption.push_back(encrypted_char);
+	}
+    return encryption;
 }
