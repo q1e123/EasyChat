@@ -37,7 +37,7 @@ std::string Connection::get_fixed_length_size(std::string message)
 
 void Connection::send_message(std::string message)
 {
-
+    message = encrypt_message(message);
     std::string encapsulated_string = get_fixed_length_size(message) + message;
 	size_t total_bytes_sent = 0;
     size_t bytes_sent = 0;
@@ -62,7 +62,8 @@ std::string Connection::recive_message()
     {
         throw Client_Down_Exception();
     }
-    return message;
+    std::string decrypted_message = decrypt_message(message);
+    return decrypted_message;
 }
 
 size_t Connection::get_size_from(std::string fixed_length_string)
