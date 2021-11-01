@@ -62,3 +62,14 @@ std::vector<double> Crypto_Manager::rsa_encrypt(std::string message)
 	}
     return encryption;
 }
+
+std::string Crypto_Manager::rsa_decrypt(std::vector<double> encrypted_message)
+{
+    std::string message = "";
+    for (auto encrypted_char : encrypted_message)
+    {
+        char decrypted_char = Crypto_Manager::rsa_decrypt_char(encrypted_char);
+        message += decrypted_char;
+    }
+    return  message;
+}
