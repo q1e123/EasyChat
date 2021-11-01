@@ -15,6 +15,6 @@ namespace Crypto_Manager{
 	std::string rsa_decrypt(std::vector<size_t> encrypted_message);
 
 	double rsa_encrypt_char(char c);
-	double rsa_decrypt_char(char c);
+	char rsa_decrypt_char(double encrypted);
 };
 

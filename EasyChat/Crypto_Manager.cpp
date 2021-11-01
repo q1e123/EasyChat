@@ -42,9 +42,13 @@ double Crypto_Manager::rsa_encrypt_char(char c)
     while (e < Crypto_Manager::PHI) {
         track = Utils::gcd(e, Crypto_Manager::PHI);
         if (track == 1)
+        {
             break;
+        }
         else
+        {
             e++;
+        }
     }
     double d1 = 1 / e;
     double d = fmod(d1, Crypto_Manager::PHI);
@@ -54,3 +58,25 @@ double Crypto_Manager::rsa_encrypt_char(char c)
     return encrypted;
 }
 
+char Crypto_Manager::rsa_decrypt_char(double encrypted)
+{
+    double track;
+    double e = 7;
+    while (e < Crypto_Manager::PHI) {
+        track = Utils::gcd(e, Crypto_Manager::PHI);
+        if (track == 1)
+        {
+            break;
+        }
+        else
+        {
+            e++;
+        }
+    }
+    double d1 = 1 / e;
+    double d = fmod(d1, Crypto_Manager::PHI);
+    double m = pow(encrypted, d);
+    m = fmod(m, Crypto_Manager::N);
+    char c = char(m);
+    return encrypted;
+}
