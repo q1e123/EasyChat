@@ -6,6 +6,7 @@
 
 #include "Crypto_Manager.h"
 #include "Server.h"
+#include "Utils.h"
 
 Connection::Connection(int port_number, const std::string ip, const std::string username)
     : port_number(port_number),
@@ -178,3 +179,11 @@ std::string Connection::encrypt_message(std::string message)
     std::string encryption_string = std::string(encryption.begin(), encryption.end());
     return encryption_string;
 }
+
+std::string Connection::decrypt_message(std::string package)
+{
+    std::vector<double> encrypted_message = Utils::string_to_vector<double>(package);
+    std::string decrypted_message = Crypto_Manager::rsa_decrypt(encrypted_message);
+    return decrypted_message;
+}
+
