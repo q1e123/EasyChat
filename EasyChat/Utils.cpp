@@ -63,5 +63,5 @@ std::vector<T> Utils::string_to_vector(std::string str)
 	{
 		result.push_back(element);
 	}
-	return result''
+	return result;
 }
