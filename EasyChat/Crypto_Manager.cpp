@@ -1,9 +1,14 @@
 #include "Crypto_Manager.h"
 
+#include <cmath>
+
 #include <sstream>
-#include <iomanip> 
+#include <iomanip>
+
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+
+#include "Utils.h"
 
 std::string Crypto_Manager::bytes_to_hex_string(const std::vector<uint8_t>& bytes)
 {
@@ -28,5 +33,24 @@ std::string Crypto_Manager::get_sha3_512_hash(std::string input)
     std::string output = Crypto_Manager::bytes_to_hex_string(std::vector<uint8_t>(digest, digest + digest_length));
     OPENSSL_free(digest);
     return output;
+}
+
+double Crypto_Manager::rsa_encrypt_char(char c)
+{
+    double track;
+    double e = 7;
+    while (e < Crypto_Manager::PHI) {
+        track = Utils::gcd(e, Crypto_Manager::PHI);
+        if (track == 1)
+            break;
+        else
+            e++;
+    }
+    double d1 = 1 / e;
+    double d = fmod(d1, Crypto_Manager::PHI);
+    double message = double(c);
+    double encrypted = pow(message, e);    double m = pow(c, d);
+    encrypted = fmod(c, Crypto_Manager::N);
+    return encrypted;
 }
 

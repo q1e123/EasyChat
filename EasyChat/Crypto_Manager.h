@@ -11,7 +11,10 @@ namespace Crypto_Manager{
 
 	std::string get_sha3_512_hash(std::string message);
 	std::string bytes_to_hex_string(const std::vector<uint8_t>& bytes);
-	std::string rsa_encrypt(std::string message);
-	std::string rsa_decrypt(std::string message);
+	std::vector<size_t> rsa_encrypt(std::string message);
+	std::string rsa_decrypt(std::vector<size_t> encrypted_message);
+
+	double rsa_encrypt_char(char c);
+	double rsa_decrypt_char(char c);
 };
 
