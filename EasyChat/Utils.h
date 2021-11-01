@@ -14,5 +14,15 @@ namespace Utils
 	std::string replace(std::string string, std::string substring_to_replace, std::string replacement);
 
 	template <class T>
-	std::vector<T> string_to_vector(std::string str);
+	std::vector<T> string_to_vector(std::string str)
+	{
+		std::vector<T> result;
+		std::stringstream stream(str);
+		T element;
+		while (stream >> element)
+		{
+			result.push_back(element);
+		}
+		return result;
+	}
 }
