@@ -52,6 +52,7 @@ TODO
 * authentification using SQLite
 * authentificatioon using INI files
 * User managmeent (modifiying passwords, deleting users using /modify and /delete commands)
+* Logging authentifications using SQLite database or text files
 * Encrypted communication using RSA
 
 ### Built With
