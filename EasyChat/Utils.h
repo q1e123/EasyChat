@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -12,6 +13,15 @@ namespace Utils
 	std::string get_query(std::string file);
 
 	std::string replace(std::string string, std::string substring_to_replace, std::string replacement);
+
+	template <class T>
+	std::string vector_to_string(std::vector<T> v)
+	{
+		std::stringstream string_stream;
+		std::copy(v.begin(), v.end(), std::ostream_iterator<T>(string_stream, " "));
+		std::string result = string_stream.str();
+		return result;
+	}
 
 	template <class T>
 	std::vector<T> string_to_vector(std::string str)
