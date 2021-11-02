@@ -177,8 +177,8 @@ void Connection::set_ip(std::string ip)
 std::string Connection::encrypt_message(std::string message)
 {
     std::vector<double> encryption = Crypto_Manager::rsa_encrypt(message);
-    std::string encryption_string = std::string(encryption.begin(), encryption.end());
-    return encryption_string;
+    std::string encryption_string = Utils::vector_to_string(encryption);
+	return encryption_string;
 }
 
 std::string Connection::decrypt_message(std::string package)
