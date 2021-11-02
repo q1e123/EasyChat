@@ -50,6 +50,9 @@ TODO
 * authentification using ini files
 * adding new users using /add command
 * authentification using SQLite
+* authentificatioon using INI files
+* User managmeent (modifiying passwords, deleting users using /modify and /delete commands)
+* Encrypted communication using RSA
 
 ### Built With
 
@@ -114,10 +117,22 @@ The port that is used by the server.
 ### Authentification
 For authentification you can use an ini file. For a template you can look at *users-template.ini* file.
 
-### Adding new users
+### Add new user
 To add new users go to the server application and use the following command:
 ```
 /add <username> <password>
+```
+
+### Change user's password
+To change user's password, go to the server application and use the following command:
+```
+/modify <username> <password>
+```
+
+### Delete user
+To delete a user go to the server application and use the following command:
+```
+/delete <username>
 ```
 <!-- ROADMAP -->
 ## Roadmap
