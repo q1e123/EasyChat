@@ -55,6 +55,12 @@ void Connection::send_message(std::string message)
 std::string Connection::recive_message()
 {
     std::string message = "";
+    std::string header = get_message(MESSAGE_BEGIN_SIZE);
+    if (header != MESSAGE_BEGIN_CHECK)
+    {
+        return HEADER_NOT_FOUND_MESSAGE;
+    }
+
     std::string recv_string = get_message(SIZE_BYTES);
     size_t message_size = get_size_from(recv_string);
     if (message_size > 0) {
@@ -62,6 +68,11 @@ std::string Connection::recive_message()
     } else
     {
         throw Client_Down_Exception();
+    }
+    std::string ending = get_message(MESSAGE_END_SIZE);
+    if (ending != MESSAGE_END_CHECK)
+    {
+        return ENDING_NOT_FOUND_MESSAGE;
     }
     std::string decrypted_message = decrypt_message(message);
     return decrypted_message;

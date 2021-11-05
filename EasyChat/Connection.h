@@ -57,8 +57,12 @@ public:
     void set_ip(std::string ip);
 	
 private:
+    const size_t MESSAGE_BEGIN_SIZE = 5;
     const std::string MESSAGE_BEGIN_CHECK = "BEGIN";
+    const std::string HEADER_NOT_FOUND_MESSAGE = "HEADER NOT FOUND";
+    const size_t MESSAGE_END_SIZE = 3;
     const std::string MESSAGE_END_CHECK = "END";
+    const std::string ENDING_NOT_FOUND_MESSAGE = "ENDING NOT FOUND";
 
     int port_number;
 
