@@ -45,6 +45,7 @@ TODO
 ### Features
 
 * public chat room
+* custom TCP/IP protocol with integrity verification
 * connection/ disconnection notifications
 * get online users command (/online) 
 * authentification using ini files
