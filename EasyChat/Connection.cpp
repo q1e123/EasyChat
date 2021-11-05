@@ -39,6 +39,7 @@ void Connection::send_message(std::string message)
 {
     message = encrypt_message(message);
     std::string encapsulated_string = get_fixed_length_size(message) + message;
+    encapsulated_string = MESSAGE_BEGIN_CHECK + encapsulated_string + MESSAGE_END_CHECK;
 	size_t total_bytes_sent = 0;
     size_t bytes_sent = 0;
     while (total_bytes_sent < encapsulated_string.size()) {
