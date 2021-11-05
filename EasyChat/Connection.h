@@ -57,6 +57,9 @@ public:
     void set_ip(std::string ip);
 	
 private:
+    const std::string MESSAGE_BEGIN_CHECK = "BEGIN";
+    const std::string MESSAGE_END_CHECK = "END";
+
     int port_number;
 
     std::string username;
