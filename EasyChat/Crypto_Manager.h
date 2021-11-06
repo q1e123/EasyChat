@@ -6,28 +6,25 @@
 class Crypto_Manager
 {
 public:
-	Crypto_Manager(const double p, const double q, )
-		: p(p),
-		  q(q)
-	{
-		this->n = p * q;
-		this->phi = (p - 1) * (q - 1);
-	}
-
+	Crypto_Manager();
 	std::string get_sha3_512_hash(std::string message);
 	std::string rsa_decrypt(std::vector<double> encrypted_message);
 	std::vector<double> rsa_encrypt(std::string message);
 
 
 private:
+	const double E = 7;
+	const char RANDOM_SEED[] = "SEED";
+	const size_t RSA_PRIVATE_KEY_SIZE = 10;
+
 	double p;
 	double q;
 	double n;
 	double phi;
-	const double E = 7;
 
-	std::string bytes_to_hex_string(const std::vector<uint8_t>& bytes);
 	double rsa_encrypt_char(char c);
 	char rsa_decrypt_char(double encrypted);
+	size_t get_random_prime();
+	std::string bytes_to_hex_string(const std::vector<uint8_t>& bytes);
 };
 

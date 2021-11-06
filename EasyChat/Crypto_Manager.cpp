@@ -10,6 +10,7 @@
 
 #include "Utils.h"
 
+
 std::string Crypto_Manager::bytes_to_hex_string(const std::vector<uint8_t>& bytes)
 {
     std::ostringstream stream;
@@ -72,4 +73,14 @@ std::string Crypto_Manager::rsa_decrypt(std::vector<double> encrypted_message)
         message += decrypted_char;
     }
     return  message;
+}
+
+size_t Crypto_Manager::get_random_prime()
+{
+    BIGNUM* bignum;
+
+    bignum = BN_new();
+    BN_generate_prime_ex(bignum, RSA_PRIVATE_KEY_SIZE, 0, NULL, NULL, NULL);
+    char* bignum_char = BN_bn2dec(bignum);
+    size_t prime = std::stoi(bignum_char);
 }
