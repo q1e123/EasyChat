@@ -45,9 +45,9 @@ double Crypto_Manager::rsa_encrypt_char(char c)
 char Crypto_Manager::rsa_decrypt_char(double encrypted)
 {
     double d1 = 1 / Crypto_Manager::E;
-    double d = fmod(d1, Crypto_Manager::PHI);
+    double d = fmod(d1, Crypto_Manager::phi);
     double decrypted = pow(encrypted, d);
-    decrypted = fmod(decrypted, Crypto_Manager::N);
+    decrypted = fmod(decrypted, Crypto_Manager::n);
     char c = static_cast<char>(round(decrypted));
     return c;
 }
