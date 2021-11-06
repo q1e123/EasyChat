@@ -59,7 +59,7 @@ void Client::connect_to_server()
 
 void Client::authentification(std::string username, std::string password)
 {
-	std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
+	std::string password_hash = crypto_manager.get_sha3_512_hash(password);
 	this->server_connection->send_message(username);
 	this->server_connection->send_message(password_hash);
 	this->server_name = this->server_connection->recive_message();

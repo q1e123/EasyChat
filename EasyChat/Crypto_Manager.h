@@ -14,7 +14,7 @@ public:
 
 private:
 	const double E = 7;
-	const char RANDOM_SEED[] = "SEED";
+	const char* RANDOM_SEED = "SEED";
 	const size_t RSA_PRIVATE_KEY_SIZE = 10;
 
 	double p;
@@ -24,7 +24,7 @@ private:
 
 	double rsa_encrypt_char(char c);
 	char rsa_decrypt_char(double encrypted);
-	size_t get_random_prime();
+	double get_random_prime();
 	std::string bytes_to_hex_string(const std::vector<uint8_t>& bytes);
 };
 

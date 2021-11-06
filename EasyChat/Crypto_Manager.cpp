@@ -10,6 +10,19 @@
 
 #include "Utils.h"
 
+Crypto_Manager::Crypto_Manager()
+{
+    do
+    {
+        this->p = get_random_prime();
+    } while (this->p == Crypto_Manager::E);
+    do
+    {
+        this->q = get_random_prime();
+    } while (this->q == Crypto_Manager::E);
+    this->n = p * q;
+    this->phi = (p - 1) * (q - 1);
+}
 
 std::string Crypto_Manager::bytes_to_hex_string(const std::vector<uint8_t>& bytes)
 {
@@ -75,12 +88,13 @@ std::string Crypto_Manager::rsa_decrypt(std::vector<double> encrypted_message)
     return  message;
 }
 
-size_t Crypto_Manager::get_random_prime()
+double Crypto_Manager::get_random_prime()
 {
     BIGNUM* bignum;
-
     bignum = BN_new();
     BN_generate_prime_ex(bignum, RSA_PRIVATE_KEY_SIZE, 0, NULL, NULL, NULL);
     char* bignum_char = BN_bn2dec(bignum);
-    size_t prime = std::stoi(bignum_char);
+    double prime = std::stod(bignum_char);
+    BN_free(bignum);
+    return prime;
 }

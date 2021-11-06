@@ -188,7 +188,7 @@ void Connection::set_ip(std::string ip)
 
 std::string Connection::encrypt_message(std::string message)
 {
-    std::vector<double> encryption = Crypto_Manager::rsa_encrypt(message);
+    std::vector<double> encryption = crypto_manager.rsa_encrypt(message);
     std::string encryption_string = Utils::vector_to_string(encryption);
 	return encryption_string;
 }
@@ -196,7 +196,7 @@ std::string Connection::encrypt_message(std::string message)
 std::string Connection::decrypt_message(std::string package)
 {
     std::vector<double> encrypted_message = Utils::string_to_vector<double>(package);
-    std::string decrypted_message = Crypto_Manager::rsa_decrypt(encrypted_message);
+    std::string decrypted_message = crypto_manager.rsa_decrypt(encrypted_message);
     return decrypted_message;
 }
 

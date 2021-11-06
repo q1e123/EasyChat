@@ -8,6 +8,7 @@
 #include <winsock2.h>
 
 #include "Connection.h"
+#include "Crypto_Manager.h"
 
 class Server_Down_Exception : public std::exception {
 public:
@@ -42,6 +43,8 @@ private:
 
 	std::shared_ptr<Connection> server_connection;
 	struct sockaddr_in server_addr;
+
+	Crypto_Manager crypto_manager;
 
 	void connect_to_server();
 	void authentification(std::string username, std::string password);

@@ -5,6 +5,8 @@
 
 #include <winsock2.h>
 
+#include "Crypto_Manager.h"
+
 #define BUFFER_SIZE 65536
 #define SIZE_BYTES 10
 
@@ -70,6 +72,8 @@ private:
     std::string ip;
 
 	SOCKET sock;
+
+    Crypto_Manager crypto_manager;
 
 	size_t get_size_from(std::string fixed_length_string);
     std::string get_message(size_t size);

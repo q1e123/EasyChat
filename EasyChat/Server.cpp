@@ -219,7 +219,7 @@ void Server::connect_to_database(Database_Driver_Type driver_type, std::string i
 
 void Server::add_new_user(std::string username, std::string password)
 {
-	std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
+	std::string password_hash = crypto_manager.get_sha3_512_hash(password);
 	this->db_driver->add_user(username, password_hash);
 }
 
@@ -259,7 +259,7 @@ void Server::server_command_manager()
 		{
 			std::string username, password;
 			command_stream >> username >> password;
-			std::string password_hash = Crypto_Manager::get_sha3_512_hash(password);
+			std::string password_hash = crypto_manager.get_sha3_512_hash(password);
 			this->modify_user(username, password_hash);
 			std::cout << "modified user's " << username << " password" << std::endl;
 		}

@@ -12,6 +12,7 @@
 #include <unordered_map>
 
 #include "Connection.h"
+#include "Crypto_Manager.h"
 #include "Database_Manager.h"
 
 typedef std::function<void(std::shared_ptr<Connection>)> FunctionType;
@@ -35,6 +36,7 @@ private:
 
 	std::thread send_worker;
 
+	Crypto_Manager crypto_manager;
 	std::mutex mtx;
 	std::map<std::string, std::shared_ptr<Connection>> username_connection_map;
 	std::shared_ptr<Connection> server_connection;
