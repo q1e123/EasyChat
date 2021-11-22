@@ -1,14 +1,16 @@
 #include <string>
 #include <vector>
-
-#include "Client.h"
-#include "Server.h"
-#include "Utils.h"
-#include "Crypto_Manager.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <string>
+
+#include <Windows.h>
+#include <windef.h>
+
+#include "Client.h"
+#include "Server.h"
+#include "Utils.h"
 
 using namespace std;
 
