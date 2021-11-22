@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\3rd-party">
-      <UniqueIdentifier>{5df2715a-6d45-434d-b5b0-cdee56ce7862}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\3rd-party\SimpleIni">
-      <UniqueIdentifier>{b6cbc3d1-5c37-4960-b805-9db2122442a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\3rd-party\SQLite">
-      <UniqueIdentifier>{f443f2ee-66b9-4ee1-937a-79a8d5fdda08}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SQL">
       <UniqueIdentifier>{11c26ec2-9935-4282-bf98-1734dd075ba6}</UniqueIdentifier>
     </Filter>
@@ -30,89 +21,6 @@
     <ClCompile Include="EasyChat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Connection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Database_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConvertUTF.c">
-      <Filter>Header Files\3rd-party\SimpleIni</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleIni_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DB_Driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Crypto_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SQLite_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shell.c">
-      <Filter>Header Files\3rd-party\SQLite</Filter>
-    </ClCompile>
-    <ClCompile Include="sqlite3.c">
-      <Filter>Header Files\3rd-party\SQLite</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Client.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Database_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConvertUTF.h">
-      <Filter>Header Files\3rd-party\SimpleIni</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleIni.h">
-      <Filter>Header Files\3rd-party\SimpleIni</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleIni_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DB_Driver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Crypto_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SQLite_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sqlite3.h">
-      <Filter>Header Files\3rd-party\SQLite</Filter>
-    </ClInclude>
-    <ClInclude Include="sqlite3ext.h">
-      <Filter>Header Files\3rd-party\SQLite</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
