@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="SQL">
-      <UniqueIdentifier>{11c26ec2-9935-4282-bf98-1734dd075ba6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EasyChat.cpp">
@@ -26,29 +23,5 @@
     <None Include="README.md" />
     <None Include="users-template.ini" />
     <None Include="packages.config" />
-    <None Include="SQL\create-user-table.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\check-authentification.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\insert-new-user.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\insert-authentification-entry.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\create-authentification-table.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\get-user.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="delete-user.sql">
-      <Filter>SQL</Filter>
-    </None>
-    <None Include="SQL\modify-user.sql">
-      <Filter>SQL</Filter>
-    </None>
   </ItemGroup>
 </Project>
